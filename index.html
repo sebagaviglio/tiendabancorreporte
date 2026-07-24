@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda Bancor · Reporte de Resultados 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --naranja: #E8522A;
+    --naranja-light: #FF6B42;
+    --naranja-pale: #FEF0EA;
+    --teal: #1B5E52;
+    --teal-mid: #2A7A6B;
+    --teal-light: #4BA090;
+    --teal-pale: #EAF4F2;
+    --carbon: #111827;
+    --slate: #374151;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+    --bg: #F9FAFB;
+    --white: #FFFFFF;
+    --success: #059669;
+    --warning: #D97706;
+    --danger: #DC2626;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    --shadow: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--carbon);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    border-bottom: 2px solid var(--naranja);
+    padding: 0 32px;
+    display: flex; align-items: center; gap: 32px;
+    height: 56px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .nav-logo { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+  .nav-logo svg { height: 30px; }
+  .nav-logo-text { font-weight: 800; font-size: 13px; letter-spacing: .04em; color: var(--teal); text-transform: uppercase; }
+
+  nav a {
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    text-decoration: none; letter-spacing: .02em;
+    padding: 4px 0; border-bottom: 2px solid transparent;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--naranja); border-bottom-color: var(--naranja); }
+
+  .nav-badge {
+    background: var(--naranja); color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 99px;
+    letter-spacing: .04em;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--teal) 0%, #0D3A31 100%);
+    color: white; padding: 64px 64px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,82,42,.25) 0%, transparent 70%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -40px; left: 30%;
+    width: 600px; height: 200px;
+    background: radial-gradient(ellipse, rgba(232,82,42,.12) 0%, transparent 70%);
+  }
+
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 1; max-width: 1200px; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,82,42,.2); border: 1px solid rgba(232,82,42,.4);
+    color: #FFB49A; font-size: 11px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 99px; margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-size: 52px; font-weight: 900; line-height: 1.05;
+    letter-spacing: -.02em; margin-bottom: 16px;
+  }
+
+  .hero-title span { color: var(--naranja); }
+
+  .hero-subtitle {
+    font-size: 17px; color: rgba(255,255,255,.7);
+    line-height: 1.6; margin-bottom: 32px; max-width: 480px;
+  }
+
+  .hero-period {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: rgba(255,255,255,.5); font-weight: 500;
+  }
+  .hero-period::before { content: ''; display: block; width: 24px; height: 1px; background: rgba(255,255,255,.3); }
+
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .hero-stat {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px; padding: 24px 20px;
+    backdrop-filter: blur(8px);
+    transition: transform .2s, background .2s;
+  }
+  .hero-stat:hover { transform: translateY(-2px); background: rgba(255,255,255,.11); }
+
+  .hero-stat-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 8px;
+  }
+
+  .hero-stat-value {
+    font-size: 32px; font-weight: 900; line-height: 1;
+    color: white; letter-spacing: -.02em;
+  }
+
+  .hero-stat-value.accent { color: var(--naranja); }
+
+  .hero-stat-sub {
+    font-size: 12px; color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+
+  /* SECTIONS */
+  section { padding: 64px; max-width: 1200px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--naranja);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 32px; font-weight: 800; letter-spacing: -.02em;
+    color: var(--teal); margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    font-size: 15px; color: var(--muted); margin-bottom: 40px; max-width: 560px;
+  }
+
+  .divider {
+    border: none; height: 1px;
+    background: var(--border);
+    margin: 0 64px;
+  }
+
+  /* KPI GRID */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+
+  .kpi-card {
+    background: var(--white); border-radius: 16px;
+    padding: 24px; border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    position: relative; overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--naranja);
+  }
+  .kpi-card.teal::before { background: var(--teal); }
+  .kpi-card.success::before { background: var(--success); }
+
+  .kpi-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: 900; letter-spacing: -.02em; color: var(--carbon); line-height: 1.1; }
+  .kpi-value.big { font-size: 36px; }
+  .kpi-change { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; margin-top: 6px; }
+  .kpi-change.up { color: var(--success); }
+  .kpi-change.down { color: var(--danger); }
+  .kpi-footnote { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* CHARTS */
+  .chart-card {
+    background: var(--white); border-radius: 20px;
+    border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    padding: 32px; margin-bottom: 24px;
+  }
+
+  .chart-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; margin-bottom: 24px;
+    flex-wrap: wrap; gap: 12px;
+  }
+
+  .chart-title { font-size: 18px; font-weight: 700; color: var(--carbon); }
+  .chart-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  .legend-pills { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .legend-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--slate); font-weight: 500; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* EVENT TIMELINE */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--naranja), var(--teal));
+    border-radius: 2px;
+  }
+
+  .timeline-item { position: relative; margin-bottom: 32px; }
+  .timeline-dot {
+    position: absolute; left: -28px; top: 4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--naranja);
+    background: var(--naranja);
+  }
+  .timeline-dot.teal { box-shadow: 0 0 0 2px var(--teal); background: var(--teal); }
+  .timeline-dot.big {
+    width: 22px; height: 22px; left: -31px;
+    box-shadow: 0 0 0 3px var(--naranja), 0 0 20px rgba(232,82,42,.4);
+    background: var(--naranja);
+  }
+
+  .timeline-month {
+    font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+  }
+
+  .timeline-card {
+    background: var(--white); border-radius: 14px;
+    border: 1px solid var(--border); padding: 20px 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .timeline-card.highlight {
+    border-color: rgba(232,82,42,.3);
+    background: linear-gradient(135deg, #FFFAF8 0%, var(--white) 100%);
+  }
+
+  .timeline-card.champion {
+    border-color: rgba(232,82,42,.5);
+    background: linear-gradient(135deg, var(--naranja-pale) 0%, #FFF5F0 100%);
+    box-shadow: 0 4px 20px rgba(232,82,42,.15);
+  }
+
+  .timeline-event-name {
+    font-size: 16px; font-weight: 700; color: var(--carbon); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .event-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 99px;
+  }
+
+  .event-badge.oferton { background: rgba(232,82,42,.15); color: var(--naranja); }
+  .event-badge.hotsale { background: rgba(27,94,82,.15); color: var(--teal); }
+  .event-badge.organico { background: rgba(107,114,128,.12); color: var(--muted); }
+  .event-badge.push { background: rgba(5,150,105,.12); color: var(--success); }
+
+  .timeline-desc { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+
+  .timeline-metrics { display: flex; gap: 24px; flex-wrap: wrap; }
+  .timeline-metric { }
+  .timeline-metric-val { font-size: 20px; font-weight: 800; color: var(--carbon); letter-spacing: -.01em; }
+  .timeline-metric-val.accent { color: var(--naranja); }
+  .timeline-metric-val.teal { color: var(--teal); }
+  .timeline-metric-lab { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+  .impact-bar {
+    margin-top: 14px; background: var(--bg); border-radius: 99px;
+    height: 6px; overflow: hidden;
+  }
+  .impact-fill {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(to right, var(--naranja), var(--naranja-light));
+    transition: width 1s ease;
+  }
+  .impact-fill.teal-fill {
+    background: linear-gradient(to right, var(--teal), var(--teal-light));
+  }
+
+  /* BENCHMARK */
+  .bench-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+
+  .bench-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--border); padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .bench-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .bench-card.us {
+    border-color: var(--naranja);
+    background: linear-gradient(135deg, #FFFAF8, var(--white));
+    box-shadow: 0 4px 20px rgba(232,82,42,.12);
+  }
+
+  .bench-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+
+  .bench-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: white;
+    flex-shrink: 0;
+  }
+
+  .bench-name { font-size: 15px; font-weight: 700; color: var(--carbon); }
+  .bench-type { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+  .bench-score-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .bench-score-label { font-size: 12px; color: var(--slate); }
+
+  .bench-bar-wrap { display: flex; align-items: center; gap: 8px; }
+
+  .bench-bar {
+    width: 100px; height: 6px; background: var(--bg);
+    border-radius: 99px; overflow: hidden;
+  }
+
+  .bench-bar-fill { height: 100%; border-radius: 99px; }
+
+  .bench-score-num { font-size: 12px; font-weight: 700; color: var(--carbon); min-width: 24px; text-align: right; }
+
+  .bench-total {
+    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .bench-total-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .bench-total-score { font-size: 24px; font-weight: 900; }
+
+  .bench-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 99px; margin-top: 6px;
+  }
+  .bench-tag.leader { background: rgba(232,82,42,.12); color: var(--naranja); }
+  .bench-tag.strong { background: rgba(27,94,82,.12); color: var(--teal); }
+  .bench-tag.mid { background: rgba(107,114,128,.10); color: var(--muted); }
+
+  /* DIFF TABLE */
+  .diff-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: var(--white); border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    margin-bottom: 32px;
+  }
+
+  .diff-table th {
+    background: var(--teal); color: white;
+    padding: 12px 16px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em; text-align: left;
+  }
+
+  .diff-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .diff-table tr:last-child td { border-bottom: none; }
+  .diff-table tr:nth-child(even) td { background: #FAFBFC; }
+
+  .diff-table .bancor-col { font-weight: 600; color: var(--naranja); }
+
+  .check { color: var(--success); font-weight: 700; }
+  .cross { color: var(--muted); }
+  .partial { color: var(--warning); font-weight: 600; }
+
+  /* PROPUESTA */
+  .propuesta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  .prop-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--border); padding: 28px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--naranja);
+  }
+
+  .prop-card.teal { border-left-color: var(--teal); }
+
+  .prop-title { font-size: 16px; font-weight: 700; color: var(--carbon); margin-bottom: 8px; }
+  .prop-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .prop-meta { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--teal); }
+
+  /* FUNNEL TABLE */
+  .funnel-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 32px; }
+
+  .funnel-col { border-right: 1px solid var(--border); }
+  .funnel-col:last-child { border-right: none; }
+
+  .funnel-header { background: var(--teal); color: white; padding: 10px 14px; font-size: 11px; font-weight: 700; text-align: center; letter-spacing: .04em; }
+
+  .funnel-cell { padding: 14px 12px; text-align: center; border-bottom: 1px solid var(--border); }
+  .funnel-cell:last-child { border-bottom: none; }
+
+  .funnel-val { font-size: 14px; font-weight: 700; color: var(--carbon); }
+  .funnel-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .funnel-val.best { color: var(--naranja); }
+  .funnel-row-label { background: var(--bg); color: var(--slate); font-size: 11px; font-weight: 600; padding: 14px 10px; text-align: center; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
+  .funnel-row-label:last-child { border-bottom: none; }
+
+  /* CANAL */
+  .canal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+
+  .canal-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow-sm); }
+  .canal-title { font-size: 14px; font-weight: 700; color: var(--carbon); margin-bottom: 16px; }
+
+  .canal-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .canal-label { font-size: 13px; color: var(--slate); min-width: 80px; }
+  .canal-bar-wrap { flex: 1; height: 8px; background: var(--bg); border-radius: 99px; overflow: hidden; margin: 0 12px; }
+  .canal-bar-fill { height: 100%; border-radius: 99px; }
+  .canal-pct { font-size: 12px; font-weight: 700; color: var(--carbon); min-width: 36px; text-align: right; }
+
+  /* INSIGHTS */
+  .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+
+  .insight-card {
+    background: var(--white); border-radius: 14px;
+    padding: 20px; border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .insight-icon { font-size: 24px; margin-bottom: 10px; }
+  .insight-title { font-size: 14px; font-weight: 700; color: var(--carbon); margin-bottom: 6px; }
+  .insight-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* FOOTER */
+  .report-footer {
+    background: var(--teal); color: white;
+    padding: 40px 64px; margin-top: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,.6); }
+  .footer-brand { font-size: 15px; font-weight: 700; color: white; }
+
+  /* CHART CONTAINER */
+  .chart-wrap { position: relative; height: 320px; }
+  .chart-wrap-sm { position: relative; height: 240px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    section { padding: 32px; }
+    .hero { padding: 40px 32px 56px; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .bench-grid { grid-template-columns: 1fr; }
+    .propuesta-grid { grid-template-columns: 1fr; }
+    .canal-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 36px; }
+    nav a { display: none; }
+    .funnel-grid { grid-template-columns: repeat(4, 1fr); }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+
+  /* COUNTER ANIMATION */
+  @keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { animation: countUp .6s ease forwards; }
+
+  /* Scroll fade */
+  .fade-up { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 10 Q20 4 26 4 Q32 4 32 10" stroke="#E8522A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <line x1="14" y1="14" x2="14" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="18.5" y1="14" x2="18.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="23" y1="14" x2="23" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="27.5" y1="14" x2="27.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="32" y1="14" x2="32" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="36.5" y1="14" x2="36.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <text x="44" y="28" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="#1B5E52">TIENDA</text>
+      <text x="44" y="44" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="#1B5E52">BANCOR</text>
+    </svg>
+  </div>
+  <a href="#performance">Performance</a>
+  <a href="#hitos">Hitos</a>
+  <a href="#canales">Canales</a>
+  <a href="#features">Tecnología</a>
+  <a href="#benchmark">Benchmark</a>
+  <a href="#propuesta">Propuesta</a>
+  <a href="#comunicaciones">Campañas</a>
+  <a href="#casoNegocio" style="color:var(--naranja); border-bottom-color:var(--naranja);">DIG_004</a>
+  <span class="nav-badge">Julio 2026</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">
+        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#FFB49A"/></svg>
+        Reporte de Resultados · Enero — Julio 2026
+      </div>
+      <h1 class="hero-title">El canal que<br><span>multiplicó ×20</span><br>su impacto</h1>
+      <p class="hero-subtitle">
+        Tienda Bancor creció de $31M en enero a $544M en mayo. El canal demostró que la inversión en comunicación y tecnología tiene retorno directo y medible.
+      </p>
+      <div class="hero-period">Datos acumulados a julio 22, 2026</div>
+    </div>
+    <div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-label">Facturación Ene–Jul 2026</div>
+          <div class="hero-stat-value accent">$960,96M</div>
+          <div class="hero-stat-sub">$950M tarjetas + $10,6M préstamos</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Pedidos concretados</div>
+          <div class="hero-stat-value">1.299</div>
+          <div class="hero-stat-sub">Ticket promedio $740K</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Sesiones / Usuarios únicos</div>
+          <div class="hero-stat-value accent">382K / 273K</div>
+          <div class="hero-stat-sub">78,8% usuarios nuevos · 2m 33s sesión</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Mobile 2026 vs 2025</div>
+          <div class="hero-stat-value">76,7%</div>
+          <div class="hero-stat-sub">vs 24,8% en 2025 · Pico 88,3% jul</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERFORMANCE -->
+<section id="performance">
+  <div class="section-eyebrow">01 · Performance General</div>
+  <h2 class="section-title">Evolución mensual 2026</h2>
+  <p class="section-subtitle">Dos eventos de alto impacto marcaron el año: el Ofertón cordobés en marzo y el Hot Sale nacional en mayo.</p>
+
+  <div class="kpi-grid fade-up">
+    <div class="kpi-card">
+      <div class="kpi-label">Mejor mes — Facturación</div>
+      <div class="kpi-value big" style="color:var(--naranja)">$544M</div>
+      <div class="kpi-change up">↑ ×49 vs abril</div>
+      <div class="kpi-footnote">Mayo 2026 · Hot Sale</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">Mejor mes — Compradores</div>
+      <div class="kpi-value big" style="color:var(--teal)">591</div>
+      <div class="kpi-change up">↑ ×20 vs abril</div>
+      <div class="kpi-footnote">Mayo 2026 · Hot Sale</div>
+    </div>
+    <div class="kpi-card success">
+      <div class="kpi-label">Ticket máximo</div>
+      <div class="kpi-value big" style="color:var(--success)">$825K</div>
+      <div class="kpi-change up">↑ +75% vs enero</div>
+      <div class="kpi-footnote">Junio 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Conversión pico</div>
+      <div class="kpi-value big">9,11%</div>
+      <div class="kpi-change up">↑ vs 1,23% de enero</div>
+      <div class="kpi-footnote">Mayo 2026 · ×7 vs enero</div>
+    </div>
+  </div>
+
+  <!-- Main chart -->
+  <div class="chart-card fade-up">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Facturación mensual (en millones de pesos)</div>
+        <div class="chart-sub">Barras = facturación · Línea = compradores · Íconos = hitos comerciales</div>
+      </div>
+      <div class="legend-pills">
+        <div class="legend-pill"><div class="legend-dot" style="background:var(--naranja)"></div> Facturación</div>
+        <div class="legend-pill"><div class="legend-dot" style="background:var(--teal)"></div> Compradores</div>
+        <div class="legend-pill"><div class="legend-dot" style="background:#F59E0B; border-radius:3px; width:14px; height:10px;"></div> Evento</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartMain"></canvas>
+    </div>
+  </div>
+
+  <!-- Two mini charts -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+    <div class="chart-card fade-up">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Ticket promedio</div>
+          <div class="chart-sub">Crecimiento sostenido del valor por compra</div>
+        </div>
+      </div>
+      <div class="chart-wrap-sm">
+        <canvas id="chartTicket"></canvas>
+      </div>
+    </div>
+    <div class="chart-card fade-up">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Usuarios y sesiones</div>
+          <div class="chart-sub">Alcance de la plataforma por mes</div>
+        </div>
+      </div>
+      <div class="chart-wrap-sm">
+        <canvas id="chartUsers"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Funnel -->
+  <div class="chart-card fade-up" style="margin-top:8px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Embudo de conversión — evolución mensual</div>
+        <div class="chart-sub">% compra/visualización como indicador de calidad del tráfico y efectividad del canal</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <div class="funnel-grid" style="min-width:700px;">
+        <div class="funnel-col">
+          <div class="funnel-header" style="background:var(--slate)">Métrica</div>
+          <div class="funnel-row-label">Usuarios totales</div>
+          <div class="funnel-row-label">Vieron producto</div>
+          <div class="funnel-row-label">Agregaron al carrito</div>
+          <div class="funnel-row-label">Iniciaron compra</div>
+          <div class="funnel-row-label">Compraron</div>
+          <div class="funnel-row-label" style="font-weight:700;color:var(--naranja)">% Conversión</div>
+        </div>
+        <div class="funnel-col">
+          <div class="funnel-header">Enero</div>
+          <div class="funnel-cell"><div class="funnel-val">40.684</div></div>
+          <div class="funnel-cell"><div class="funnel-val">9.616</div><div class="funnel-sub">23,6%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">5.246</div><div class="funnel-sub">54,5%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">4.510</div><div class="funnel-sub">86%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">63</div></div>
+          <div class="funnel-cell"><div class="funnel-val">1,25%</div></div>
+        </div>
+        <div class="funnel-col">
+          <div class="funnel-header">Febrero</div>
+          <div class="funnel-cell"><div class="funnel-val">35.243</div></div>
+          <div class="funnel-cell"><div class="funnel-val">8.470</div><div class="funnel-sub">24%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">4.888</div><div class="funnel-sub">57,7%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">3.832</div><div class="funnel-sub">78,4%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">50</div></div>
+          <div class="funnel-cell"><div class="funnel-val">1,45%</div></div>
+        </div>
+        <div class="funnel-col" style="background:#FFFAF8;">
+          <div class="funnel-header" style="background:var(--naranja);">Marzo 🔥</div>
+          <div class="funnel-cell"><div class="funnel-val best">74.245</div></div>
+          <div class="funnel-cell"><div class="funnel-val">18.935</div><div class="funnel-sub">25,5%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">4.749</div><div class="funnel-sub">25,1%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">2.661</div><div class="funnel-sub">56%</div></div>
+          <div class="funnel-cell"><div class="funnel-val best">247</div></div>
+          <div class="funnel-cell"><div class="funnel-val best">3,06%</div></div>
+        </div>
+        <div class="funnel-col">
+          <div class="funnel-header">Abril</div>
+          <div class="funnel-cell"><div class="funnel-val" style="color:var(--danger)">18.422</div></div>
+          <div class="funnel-cell"><div class="funnel-val">3.504</div><div class="funnel-sub">19%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">507</div><div class="funnel-sub">14,5%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">166</div><div class="funnel-sub">32,7%</div></div>
+          <div class="funnel-cell"><div class="funnel-val" style="color:var(--danger)">29</div></div>
+          <div class="funnel-cell"><div class="funnel-val" style="color:var(--danger)">1,23%</div></div>
+        </div>
+        <div class="funnel-col" style="background:#F0FAF7;">
+          <div class="funnel-header" style="background:#0D3A31;">Mayo 🚀</div>
+          <div class="funnel-cell"><div class="funnel-val best">60.539</div></div>
+          <div class="funnel-cell"><div class="funnel-val">18.641</div><div class="funnel-sub">30,8%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">3.868</div><div class="funnel-sub">20,7%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">1.548</div><div class="funnel-sub">40%</div></div>
+          <div class="funnel-cell"><div class="funnel-val best">591</div></div>
+          <div class="funnel-cell"><div class="funnel-val best" style="color:var(--teal)">9,11% ★</div></div>
+        </div>
+        <div class="funnel-col">
+          <div class="funnel-header">Jun–Jul</div>
+          <div class="funnel-cell"><div class="funnel-val">~21K</div></div>
+          <div class="funnel-cell"><div class="funnel-val">~4.3K</div><div class="funnel-sub">21%</div></div>
+          <div class="funnel-cell"><div class="funnel-val">~900</div></div>
+          <div class="funnel-cell"><div class="funnel-val">~300</div></div>
+          <div class="funnel-cell"><div class="funnel-val">~100</div></div>
+          <div class="funnel-cell"><div class="funnel-val">4–8%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Efficiency block from executive report -->
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px;" class="fade-up">
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm); text-align:center;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Conversión usuarios autenticados</div>
+      <div style="font-size:36px; font-weight:900; color:var(--teal);">8,5%</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">Promedio H1 · Pico 22,1% en Hot Sale</div>
+    </div>
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm); text-align:center;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Tasa de devolución</div>
+      <div style="font-size:36px; font-weight:900; color:var(--success);">1,9%</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">Alta efectividad logística y postventa</div>
+    </div>
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm); text-align:center;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Facturación por tarjeta</div>
+      <div style="font-size:36px; font-weight:900; color:var(--naranja);">98,9%</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">1,1% financiación Bancor (pico 15% en abr)</div>
+    </div>
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm); text-align:center;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Device flip vs 2025</div>
+      <div style="font-size:36px; font-weight:900; color:var(--teal);">+309%</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">Mobile: 24,8% (2025) → 76,7% (2026)</div>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#FFF7ED,#FFFBEB); border:1px solid #FDE68A; border-radius:14px; padding:16px 20px; margin-top:16px; display:flex; align-items:center; gap:16px;" class="fade-up">
+    <div style="font-size:24px; flex-shrink:0;">💡</div>
+    <div style="font-size:13px; color:#78350F; line-height:1.6;">
+      <strong>Dato diferencial — Abril 2026:</strong> En el mes de menor facturación del año, los préstamos personales Bancor alcanzaron el <strong>16,2% de los pedidos y el 15% de la facturación</strong>. Esto confirma una demanda latente masiva: cuando el banco activa condiciones preferenciales de financiación, el canal responde inmediatamente. La integración financiera es el diferencial que ningún competidor puede replicar.
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HITOS -->
+<section id="hitos">
+  <div class="section-eyebrow">02 · Hitos Comerciales</div>
+  <h2 class="section-title">Comunicación y eventos: el motor del crecimiento</h2>
+  <p class="section-subtitle">La correlación entre acciones de comunicación y resultados es directa y medible. Cada evento generó un pico inmediato y verificable.</p>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;">
+    <div class="timeline fade-up">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-month">Enero 2026</div>
+        <div class="timeline-card">
+          <div class="timeline-event-name">Inicio de año — línea base <span class="event-badge organico">Orgánico</span></div>
+          <div class="timeline-desc">Mes de base sin acciones de alto impacto. Tráfico mayormente orgánico y sin funnel. Se establece el piso del canal.</div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val">$31M</div><div class="timeline-metric-lab">Facturación</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">63</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">$470K</div><div class="timeline-metric-lab">Ticket prom.</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill" style="width:6%"></div></div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-month">Febrero 2026</div>
+        <div class="timeline-card">
+          <div class="timeline-event-name">Crecimiento orgánico sostenido <span class="event-badge organico">Orgánico</span></div>
+          <div class="timeline-desc">Leve crecimiento de ticket promedio (+30% vs enero). El canal consolida su base de sellers. Grupo Núcleo lidera con 47% de artículos añadidos al carrito.</div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val">$33M</div><div class="timeline-metric-lab">Facturación</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">50</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">$613K</div><div class="timeline-metric-lab">Ticket prom.</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill" style="width:6%"></div></div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot big"></div>
+        <div class="timeline-month">9–13 Marzo 2026</div>
+        <div class="timeline-card champion">
+          <div class="timeline-event-name">
+            🔥 OFERTÓN 2026 — Evento Provincial
+            <span class="event-badge oferton">Ofertón</span>
+          </div>
+          <div class="timeline-desc">
+            El evento de eCommerce de Córdoba organizado por la Secretaría de Comercio provincial con 500+ comercios adheridos. Tienda Bancor participó activamente como plataforma clave del ecosistema. El modal fue el 2do canal de compradores (52 sobre 247).
+          </div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val accent">$176M</div><div class="timeline-metric-lab">Facturación</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val accent">247</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">81K</div><div class="timeline-metric-lab">Vistas promo</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val accent">×5.3</div><div class="timeline-metric-lab">vs febrero</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill" style="width:32%"></div></div>
+          <div style="margin-top:10px; font-size:12px; color:var(--muted);">📍 Origen: modal (34.953 sesiones → 52 compradores) · zocalo (6.352 → 31) · organic (10.238 → 57)</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--danger); box-shadow: 0 0 0 2px var(--danger);"></div>
+        <div class="timeline-month">Abril 2026</div>
+        <div class="timeline-card">
+          <div class="timeline-event-name">Post-evento — caída esperada <span class="event-badge organico">Resaca</span></div>
+          <div class="timeline-desc">
+            Caída post-Ofertón. Sin acciones de comunicación activas. El volumen de compradores cae a su mínimo del año (29). Tasa de conversión vuelve a base (1,23%). Sin campañas de performance activas (paid: 82 sesiones, 0 compradores).
+          </div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val" style="color:var(--danger)">$10M</div><div class="timeline-metric-lab">Facturación</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val" style="color:var(--danger)">29</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">$312K</div><div class="timeline-metric-lab">Ticket prom.</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill" style="width:2%; background:var(--danger);"></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="timeline fade-up">
+
+      <div class="timeline-item">
+        <div class="timeline-dot big" style="box-shadow: 0 0 0 3px var(--teal), 0 0 20px rgba(27,94,82,.4); background:var(--teal);"></div>
+        <div class="timeline-month">11–13 Mayo 2026</div>
+        <div class="timeline-card champion" style="border-color:rgba(27,94,82,.5); background:linear-gradient(135deg,var(--teal-pale),#F5FFFE);">
+          <div class="timeline-event-name">
+            🚀 HOT SALE 2026 — Récord absoluto
+            <span class="event-badge hotsale">Hot Sale</span>
+          </div>
+          <div class="timeline-desc">
+            El evento más importante del eCommerce argentino (CACE, 800+ marcas). Tienda Bancor alcanzó su máximo histórico. El Zocalo se convirtió en el 2do canal por compradores (153 sobre 591). El ticket promedio alcanzó $821K.
+          </div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val teal">$544M</div><div class="timeline-metric-lab">Facturación</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val teal">591</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">113K</div><div class="timeline-metric-lab">Vistas promo</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val teal">×49</div><div class="timeline-metric-lab">vs abril</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill teal-fill" style="width:100%"></div></div>
+          <div style="margin-top:10px; font-size:12px; color:var(--muted);">📍 Zocalo: 12.216 ses → 153 compradores · growth: 8.659 → 33 · modal: 5.842 → 24</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot teal"></div>
+        <div class="timeline-month">Junio 2026</div>
+        <div class="timeline-card highlight">
+          <div class="timeline-event-name">Post Hot Sale — consolidación de ticket <span class="event-badge organico">Continuidad</span></div>
+          <div class="timeline-desc">
+            Los compradores bajan fuertemente (70 vs 591), pero el ticket promedio alcanza su récord absoluto: $825K. Push activo con 4.968 sesiones. Viento frío estacional impulsa AC, ventiladores y calefactores.
+          </div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val">$59M</div><div class="timeline-metric-lab">Facturación</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">70</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val accent">$825K ★</div><div class="timeline-metric-lab">Ticket prom.</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill" style="width:11%"></div></div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--success); box-shadow: 0 0 0 2px var(--success);"></div>
+        <div class="timeline-month">1–22 Julio 2026</div>
+        <div class="timeline-card highlight">
+          <div class="timeline-event-name">Push + Mail: nuevo mix de canales <span class="event-badge push">Push activo</span></div>
+          <div class="timeline-desc">
+            Julio muestra un cambio significativo en la estrategia de canales: Push genera 23 compradores (3.568 sesiones) y Mail 9 compradores (1.168 sesiones). Con solo 22 días ya acumula $123M. Estacionalidad invernal: ACs inverter y notebooks lideran ventas.
+          </div>
+          <div class="timeline-metrics">
+            <div class="timeline-metric"><div class="timeline-metric-val accent">$123M</div><div class="timeline-metric-lab">Facturación (22d)</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val">142</div><div class="timeline-metric-lab">Compradores</div></div>
+            <div class="timeline-metric"><div class="timeline-metric-val" style="color:var(--success)">7,69%</div><div class="timeline-metric-lab">Conversión</div></div>
+          </div>
+          <div class="impact-bar"><div class="impact-fill" style="width:22%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Insight cards -->
+  <div class="insight-grid fade-up">
+    <div class="insight-card">
+      <div class="insight-icon">📣</div>
+      <div class="insight-title">Evento = ×20 en facturación</div>
+      <div class="insight-text">La participación en Hot Sale generó 20 veces más facturación que el mes anterior sin evento. El canal demostró capacidad de escala inmediata.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">📉</div>
+      <div class="insight-title">Sin comunicación, el canal duerme</div>
+      <div class="insight-text">Abril sin acciones = $10M. El canal no tiene demanda espontánea suficiente. La inversión en comunicación no es opcional: es la palanca central del negocio.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">📲</div>
+      <div class="insight-title">Push y Mail: canales con ROI alto</div>
+      <div class="insight-text">En julio, push generó 23 compradores desde 3.568 sesiones (0.64% conversión real), superando al canal orgánico. La estrategia CRM está probando ser clave.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CANALES -->
+<section id="canales">
+  <div class="section-eyebrow">03 · Análisis de Canales</div>
+  <h2 class="section-title">De dónde viene el tráfico que convierte</h2>
+  <p class="section-subtitle">El tráfico "not set" sigue siendo el mayor volumen, pero los canales propios (push, zocalo, modal, mail) son los que generan compradores reales.</p>
+
+  <div class="canal-grid fade-up">
+    <div class="canal-card">
+      <div class="canal-title">Canales por compradores generados — Mayo (Hot Sale)</div>
+      <div class="canal-row">
+        <div class="canal-label">Not set</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:56%; background:var(--muted); height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct">332</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label" style="color:var(--naranja);font-weight:700;">Zocalo 🔥</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:26%; background:var(--naranja); height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct" style="color:var(--naranja);">153</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label">Growth</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:6%; background:var(--teal); height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct">33</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label">Organic</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:5%; background:#9CA3AF; height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct">28</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label">Modal</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:4%; background:#6B7280; height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct">24</div>
+      </div>
+      <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border); font-size:12px; color:var(--muted);">
+        ✦ El Zocalo de Bancon fue el canal de performance más eficiente del mes: 12.216 sesiones → 153 compradores (1.25% conversión)
+      </div>
+    </div>
+
+    <div class="canal-card">
+      <div class="canal-title">Canales por compradores generados — Julio</div>
+      <div class="canal-row">
+        <div class="canal-label">Not set</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:75%; background:var(--muted); height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct">106</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label" style="color:var(--success);font-weight:700;">Push 🆕</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:16%; background:var(--success); height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct" style="color:var(--success);">23</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label" style="color:var(--teal);font-weight:700;">Mail 🆕</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:6%; background:var(--teal); height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct" style="color:var(--teal);">9</div>
+      </div>
+      <div class="canal-row">
+        <div class="canal-label">Organic</div>
+        <div class="canal-bar-wrap"><div class="canal-bar-fill" style="width:1.5%; background:#9CA3AF; height:100%; border-radius:99px;"></div></div>
+        <div class="canal-pct">2</div>
+      </div>
+      <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border); font-size:12px; color:var(--muted);">
+        ✦ Push + Mail = 32 compradores en julio. En enero, estos canales generaban 0. Es la evolución más relevante del semestre.
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-card fade-up">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Dispositivos: Mobile dominante con crecimiento en Desktop</div>
+        <div class="chart-sub">Mobile lidera en volumen pero Desktop tiene conversión relativa alta en meses de evento</div>
+      </div>
+    </div>
+    <div class="chart-wrap-sm">
+      <canvas id="chartDevices"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="propuesta">
+  <div class="section-eyebrow">05 · Propuesta de Reinversión</div>
+  <h2 class="section-title">Por qué mantener e invertir en el canal</h2>
+  <p class="section-subtitle">Los datos de 2026 demuestran que Tienda Bancor tiene retorno directo y medible. La propuesta es sostener el canal con inversión en tres ejes críticos.</p>
+
+  <div class="kpi-grid fade-up" style="margin-bottom:32px;">
+    <div class="kpi-card">
+      <div class="kpi-label">ROI del Ofertón (marzo)</div>
+      <div class="kpi-value" style="color:var(--naranja);">×5.3</div>
+      <div class="kpi-footnote">Facturación vs mes sin evento</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">ROI del Hot Sale (mayo)</div>
+      <div class="kpi-value" style="color:var(--teal);">×49</div>
+      <div class="kpi-footnote">Facturación vs abril sin acción</div>
+    </div>
+    <div class="kpi-card success">
+      <div class="kpi-label">Ticket promedio YTD</div>
+      <div class="kpi-value" style="color:var(--success);">+71%</div>
+      <div class="kpi-footnote">Crecimiento ene → jul 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Compradores nuevos</div>
+      <div class="kpi-value">93%</div>
+      <div class="kpi-footnote">En mayo fueron nuevos (555/591)</div>
+    </div>
+  </div>
+
+  <div class="propuesta-grid fade-up">
+    <div class="prop-card">
+      <div class="prop-title">🛠️ Tecnología y plataforma</div>
+      <div class="prop-desc">
+        La plataforma demostró escalar de 18K usuarios en abril a 74K en marzo sin problemas técnicos reportados. La inversión debe apuntar a mejorar el embudo de conversión post-carrito (hoy del 17% en meses base), optimizar la experiencia mobile y desarrollar capacidades de personalización por segmento de cliente.
+      </div>
+      <div class="prop-meta">→ Prioridad: UX mobile · Checkout optimizado · Búsqueda inteligente</div>
+    </div>
+    <div class="prop-card teal">
+      <div class="prop-title">📣 Comunicación y eventos</div>
+      <div class="prop-desc">
+        El mayor hallazgo del año es que sin comunicación, el canal no existe. Participar en Cyber Monday (noviembre), crear un evento propio en invierno (julio/agosto), y activar push + mail como canales permanentes son las acciones con mayor retorno probado. El Zocalo de Bancon generó 153 compradores en mayo: es el canal propio más eficiente.
+      </div>
+      <div class="prop-meta">→ Prioridad: CyberMonday · Evento propio Q3 · Push permanente</div>
+    </div>
+    <div class="prop-card">
+      <div class="prop-title">🤝 Ecosistema de sellers</div>
+      <div class="prop-desc">
+        Con 80+ sellers activos, el catálogo de Tienda Bancor es robusto. La oportunidad está en diversificar más allá de Rivera Hogar y Megatone (que concentran el tráfico), incorporar nuevas categorías con ticket alto (viajes, salud, servicios) y estructurar un programa de sellers premier con métricas de performance.
+      </div>
+      <div class="prop-meta">→ Prioridad: Nuevas categorías · Seller tiers · SLA de calidad</div>
+    </div>
+    <div class="prop-card teal">
+      <div class="prop-title">📊 Datos e inteligencia</div>
+      <div class="prop-desc">
+        La tasa de "unknown" en edad y sexo (entre el 55% y 80% según el mes) indica que hay una oportunidad masiva de enriquecer los perfiles de usuario. Con datos bancarios disponibles, Tienda Bancor puede construir segmentación de audiencias que ningún competidor tiene: perfil financiero + comportamiento de compra.
+      </div>
+      <div class="prop-meta">→ Prioridad: CDP · Segmentación bancaria · Personalización de ofertas</div>
+    </div>
+  </div>
+
+  <!-- Calendario propuesto -->
+  <div class="chart-card fade-up" style="margin-top:24px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Calendario de hitos propuesto — H2 2026</div>
+        <div class="chart-sub">Basado en el patrón de evento = ×5 a ×49 de facturación</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; padding:8px 0;">
+      <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Agosto</div>
+        <div style="font-size:22px; margin-bottom:6px;">❄️</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Evento Invierno</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Calefacción · Blanquería</div>
+      </div>
+      <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Septiembre</div>
+        <div style="font-size:22px; margin-bottom:6px;">🏫</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Vuelta a clases</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Notebooks · Útiles</div>
+      </div>
+      <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Octubre</div>
+        <div style="font-size:22px; margin-bottom:6px;">👨</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Día del Padre</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Tecnología · Herramientas</div>
+      </div>
+      <div style="background:var(--naranja-pale); border: 1px solid rgba(232,82,42,.2); border-radius:12px; padding:16px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--naranja); text-transform:uppercase; margin-bottom:6px;">Noviembre</div>
+        <div style="font-size:22px; margin-bottom:6px;">🛍️</div>
+        <div style="font-size:12px; font-weight:700; color:var(--naranja);">Cyber Monday</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Evento clave CACE</div>
+      </div>
+      <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Noviembre</div>
+        <div style="font-size:22px; margin-bottom:6px;">🏷️</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Black Friday</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Electro · Hogar</div>
+      </div>
+      <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Diciembre</div>
+        <div style="font-size:22px; margin-bottom:6px;">🎁</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Navidad / Fin de año</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Regalos · Hogar</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FEATURES & TECH -->
+<section id="features">
+  <div class="section-eyebrow">04b · Tecnología & Producto</div>
+  <h2 class="section-title">H1 2026: La plataforma que se reinventó</h2>
+  <p class="section-subtitle">Mientras el canal crecía comercialmente, la infraestructura se actualizó en paralelo. 20+ entregables tecnológicos en 7 meses, sin detener el negocio.</p>
+
+  <!-- Salud del catálogo -->
+  <div class="chart-card fade-up" style="margin-bottom:24px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Salud del catálogo y ecosistema de sellers — Julio 2026</div>
+        <div class="chart-sub">Diagnóstico actual y plan de saneamiento en marcha</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:20px;">
+      <div style="text-align:center; padding:20px; background:var(--bg); border-radius:12px;">
+        <div style="font-size:32px; font-weight:900; color:var(--teal);">99</div>
+        <div style="font-size:12px; font-weight:600; color:var(--slate); margin-top:4px;">Sellers registrados</div>
+        <div style="font-size:11px; color:var(--muted);">↓ vs 117 en dic-2025</div>
+      </div>
+      <div style="text-align:center; padding:20px; background:var(--teal-pale); border-radius:12px; border:1px solid rgba(27,94,82,.2);">
+        <div style="font-size:32px; font-weight:900; color:var(--teal);">49%</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal); margin-top:4px;">Sellers activos</div>
+        <div style="font-size:11px; color:var(--muted);">Con oferta + stock constante</div>
+      </div>
+      <div style="text-align:center; padding:20px; background:var(--bg); border-radius:12px;">
+        <div style="font-size:32px; font-weight:900; color:var(--slate);">36.476</div>
+        <div style="font-size:12px; font-weight:600; color:var(--slate); margin-top:4px;">SKUs cargados</div>
+        <div style="font-size:11px; color:var(--muted);">Total en plataforma</div>
+      </div>
+      <div style="text-align:center; padding:20px; background:var(--naranja-pale); border-radius:12px; border:1px solid rgba(232,82,42,.2);">
+        <div style="font-size:32px; font-weight:900; color:var(--naranja);">9.092</div>
+        <div style="font-size:12px; font-weight:600; color:var(--naranja); margin-top:4px;">SKUs con stock real</div>
+        <div style="font-size:11px; color:var(--muted);">25% disponibilidad efectiva</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div style="background:var(--bg); border-radius:12px; padding:16px;">
+        <div style="font-size:13px; font-weight:700; color:var(--teal); margin-bottom:10px;">🏆 Top 5 sellers por volumen y facturación</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:13px; color:var(--carbon); font-weight:600;">Megatone</span>
+            <span style="font-size:10px; font-weight:700; background:var(--naranja); color:white; padding:2px 8px; border-radius:99px;">LÍDER</span>
+          </div>
+          <div style="font-size:12px; color:var(--slate);">Rivera Hogar</div>
+          <div style="font-size:12px; color:var(--slate);">Mauri Computación</div>
+          <div style="font-size:12px; color:var(--slate);">Vstore</div>
+          <div style="font-size:12px; color:var(--slate);">Grupo Núcleo · MaxiHome</div>
+        </div>
+      </div>
+      <div style="background:#FEF3C7; border-radius:12px; padding:16px; border:1px solid #FCD34D;">
+        <div style="font-size:13px; font-weight:700; color:#92400E; margin-bottom:10px;">⚡ Acciones de saneamiento en marcha</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:12px; color:#78350F;">✓ Aislamiento automático de sellers deshabilitados en Home y catálogo</div>
+          <div style="font-size:12px; color:#78350F;">✓ Alertas por email de publicación mínima para proteger UX</div>
+          <div style="font-size:12px; color:#78350F;">→ Meta H2: llevar disponibilidad SKUs del 25% al 50%+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features H1 -->
+  <h3 style="font-size:20px; font-weight:700; color:var(--teal); margin-bottom:20px; margin-top:8px;" class="fade-up">Entregables H1: La tecnología como motor estructural</h3>
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px;" class="fade-up">
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:36px; height:36px; background:var(--teal-pale); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">🏗️</div>
+        <div style="font-size:13px; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:.04em;">Arquitectura e infraestructura</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Migración Adobe Commerce Fase 1</strong> — Reducción sustancial de latencia y tiempos de carga</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Refuerzo Ciberseguridad & PolyShell</strong> — Parches avanzados, vulnerabilidades críticas mitigadas</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Plan DRP & Backups</strong> — Automatización de resguardos y continuidad operativa</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:36px; height:36px; background:var(--naranja-pale); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">💰</div>
+        <div style="font-size:13px; font-weight:700; color:var(--naranja); text-transform:uppercase; letter-spacing:.04em;">Soluciones financieras</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:8px 12px; background:var(--naranja-pale); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Simulador de Financiación en ficha de producto</strong> — Impactó positivamente conversión y ticket promedio</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Contrato Mutuo digital</strong> — Préstamos personales formalizados en Tienda</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Simulador Vertical Vehículos</strong> — Préstamos automotores (prod. en Q3)</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Evolución Bantotal</strong> — Optimización arquitectura core bancario</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:36px; height:36px; background:#EDE9FE; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">🎨</div>
+        <div style="font-size:13px; font-weight:700; color:#7C3AED; text-transform:uppercase; letter-spacing:.04em;">UX / Experiencia de compra</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:8px 12px; background:#EDE9FE; border-radius:8px; font-size:12px; color:var(--slate);"><strong>Nuevo motor de búsqueda</strong> — Rediseño completo para mejor hallazgo y descubrimiento</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>"Mis Favoritos"</strong> — Wishlist para guardar intención de compra y fomentar recurrencia</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>TuTi — Asistente Virtual</strong> — Flujos conversacionales completos, en QA pre-producción</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Proceso Digital de Arrepentimiento</strong> — Devoluciones optimizadas, alineadas a normativa</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:36px; height:36px; background:#F0FDF4; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">📋</div>
+        <div style="font-size:13px; font-weight:700; color:var(--success); text-transform:uppercase; letter-spacing:.04em;">Gobierno de catálogo</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:8px 12px; background:#F0FDF4; border-radius:8px; font-size:12px; color:var(--slate);"><strong>Scraping paridad de precios</strong> — Piloto activo en 24 sellers clave</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Sync avanzada con Producteca</strong> — Reducción de quiebres de stock y cancelaciones</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Carga masiva multi-categoría</strong> — Herramienta operativa para altas y modificaciones</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Aislamiento sellers deshabilitados</strong> — Oculta productos de inactivos automáticamente</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:22px; box-shadow:var(--shadow-sm); grid-column:span 2;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:36px; height:36px; background:#FEF3C7; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">🏪</div>
+        <div style="font-size:13px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:.04em;">Marketplace & operaciones</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div style="padding:8px 12px; background:#FEF3C7; border-radius:8px; font-size:12px; color:var(--slate);"><strong>Cobro de comisiones a sellers</strong> — Monetización formalizada del marketplace</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Portal Seller Manager</strong> — Panel unificado + mensajería centralizada</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Gestión multi-usuario + audit log</strong> — Control y trazabilidad por seller</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Vertical Vehículos — Carga automática</strong> — Asistente para catálogo automotor</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Evolución reportería operativa</strong> — Nuevos tableros para decisión basada en datos</div>
+        <div style="padding:8px 12px; background:var(--bg); border-radius:8px; font-size:12px; color:var(--slate);"><strong>Tarifas de envío — Gestión avanzada</strong> — Exclusiones y carga masiva por seller</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roadmap H2 -->
+  <h3 style="font-size:20px; font-weight:700; color:var(--teal); margin-bottom:20px;" class="fade-up">Roadmap H2 2026: Sinergia, Expansión y Ecosistema</h3>
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px;" class="fade-up">
+
+    <div style="background:linear-gradient(135deg,#1B5E52,#2A7A6B); border-radius:16px; padding:22px; color:white;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:10px;">💳 Pagos y eficiencia</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:10px 14px; background:rgba(255,255,255,.1); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Migración a Bezza Pay</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.7);">Reemplazo de Mobbex. Sinergia interna del grupo, liquidaciones unificadas y continuidad operativa. Reducción de costos.</div>
+        </div>
+        <div style="padding:10px 14px; background:rgba(255,255,255,.1); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Magento 2.4.9 — Fase 2</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.7);">Ciberseguridad y cumplimiento. Aprovecha horas disponibles sin alterar roadmap comercial.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#1565C0,#1976D2); border-radius:16px; padding:22px; color:white;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:10px;">📱 Ecosistema Bancor</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:10px 14px; background:rgba(255,255,255,.1); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Integración App Bancon (SSO/OAuth)</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.7);">Acceso sin fricciones con credenciales bancarias. Valida el device flip al 76,7% mobile.</div>
+        </div>
+        <div style="padding:10px 14px; background:rgba(255,255,255,.1); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">TuTi — Pase a producción</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.7);">Asistente virtual + ruteo inteligente al Bot Central Bancor para consultas bancarias.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--naranja),#D94020); border-radius:16px; padding:22px; color:white;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.7); margin-bottom:10px;">🌍 Expansión de negocio</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:10px 14px; background:rgba(255,255,255,.15); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">MVP Turismo — Alianza Almundo</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.8);">Discovery + lanzamiento vertical de Viajes. Paquetes nacionales cerrados en H2.</div>
+        </div>
+        <div style="padding:10px 14px; background:rgba(255,255,255,.15); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Sistema de Reputación de Sellers</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.8);">Reviews de productos y métricas de desempeño para aumentar confianza en la plataforma.</div>
+        </div>
+        <div style="padding:10px 14px; background:rgba(255,255,255,.15); border-radius:10px;">
+          <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Scraping escalado + Reportería auto.</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.8);">Paridad de precios a todo el catálogo + KPIs en tiempo real.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMUNICACIONES -->
+<section id="comunicaciones" style="padding-top:0;">
+  <hr class="divider" style="margin:0 0 64px;">
+  <div class="section-eyebrow">05b · Piezas de Comunicación</div>
+  <h2 class="section-title">Las campañas que movieron el canal</h2>
+  <p class="section-subtitle">Cada pieza de comunicación fue el disparador directo de los picos de tráfico y ventas. Aquí el registro visual de las acciones ejecutadas.</p>
+
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:40px;" class="fade-up">
+
+    <!-- Ofertón -->
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm);">
+      <div style="background:linear-gradient(135deg,#00695C,#004D40); padding:16px 20px;">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:4px;">Marzo 2026 · 9 al 13</div>
+        <div style="font-size:16px; font-weight:800; color:white;">Super Ofertón</div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span style="background:var(--naranja-pale); color:var(--naranja); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Mailing</span>
+          <span style="background:var(--teal-pale); color:var(--teal); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Banner digital</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:12px;">Campaña de email marketing anunciando la participación de Tienda Bancor en el Ofertón provincial. Beneficio destacado: <strong>12 cuotas sin interés con Cordobesa</strong>.</p>
+        <div style="background:var(--naranja-pale); border-radius:10px; padding:12px; display:flex; justify-content:space-between;">
+          <div><div style="font-size:18px; font-weight:800; color:var(--naranja);">$176M</div><div style="font-size:10px; color:var(--muted);">Facturación mes</div></div>
+          <div><div style="font-size:18px; font-weight:800; color:var(--naranja);">247</div><div style="font-size:10px; color:var(--muted);">Compradores</div></div>
+          <div><div style="font-size:18px; font-weight:800; color:var(--naranja);">81K</div><div style="font-size:10px; color:var(--muted);">Vistas promo</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hot Sale -->
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm);">
+      <div style="background:linear-gradient(135deg,#1B5E52,#0D3A31); padding:16px 20px;">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:4px;">Mayo 2026 · 11 al 13</div>
+        <div style="font-size:16px; font-weight:800; color:white;">Hot Sale — Comprás y te queda</div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span style="background:var(--naranja-pale); color:var(--naranja); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Mailing</span>
+          <span style="background:var(--teal-pale); color:var(--teal); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Beneficio exclusivo</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:12px;">Email de alta conversión con el beneficio diferencial exclusivo de Tienda Bancor para Hot Sale: <strong>hasta 18 cuotas sin interés con Cordobesa</strong>. Ventaja que ningún competidor ofreció en el evento.</p>
+        <div style="background:var(--teal-pale); border-radius:10px; padding:12px; display:flex; justify-content:space-between;">
+          <div><div style="font-size:18px; font-weight:800; color:var(--teal);">$544M</div><div style="font-size:10px; color:var(--muted);">Facturación mes</div></div>
+          <div><div style="font-size:18px; font-weight:800; color:var(--teal);">591</div><div style="font-size:10px; color:var(--muted);">Compradores</div></div>
+          <div><div style="font-size:18px; font-weight:800; color:var(--teal);">113K</div><div style="font-size:10px; color:var(--muted);">Vistas promo</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mundial -->
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm);">
+      <div style="background:linear-gradient(135deg,#1B5E52,#2A7A6B); padding:16px 20px;">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:4px;">Julio 2026 · Hasta 19/7</div>
+        <div style="font-size:16px; font-weight:800; color:white;">Ganá la Tele — Mundial</div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span style="background:var(--naranja-pale); color:var(--naranja); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Mailing</span>
+          <span style="background:#FEF3C7; color:#92400E; font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Promo/Sorteo</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:12px;">Campaña temática Copa del Mundo: comprá tu TV en cuotas y participá para ganarla gratis. <strong>12 o 18 cuotas sin interés con Cordobesa</strong>. Tope de reintegro $1.000.000. Impulsa la categoría TV en temporada futbolística.</p>
+        <div style="background:#FEF3C7; border-radius:10px; padding:12px; display:flex; justify-content:space-between;">
+          <div><div style="font-size:18px; font-weight:800; color:#92400E;">$123M</div><div style="font-size:10px; color:var(--muted);">Facturación (22d)</div></div>
+          <div><div style="font-size:18px; font-weight:800; color:#92400E;">142</div><div style="font-size:10px; color:var(--muted);">Compradores</div></div>
+          <div><div style="font-size:18px; font-weight:800; color:#92400E;">7,69%</div><div style="font-size:10px; color:var(--muted);">Conversión</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner genérico -->
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm);">
+      <div style="background:linear-gradient(135deg,var(--naranja),#FF6B42); padding:16px 20px;">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.7); margin-bottom:4px;">Comunicación permanente</div>
+        <div style="font-size:16px; font-weight:800; color:white;">Todos los días · Tienda Bancor</div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span style="background:var(--naranja-pale); color:var(--naranja); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Mailing</span>
+          <span style="background:var(--bg); color:var(--muted); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; text-transform:uppercase;">Branding</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); line-height:1.5;">Pieza institucional de base que refuerza el posicionamiento del canal: <strong>3|6|12|18 sin interés con Cordobesa</strong>. Destacando envío a todo el país y las categorías de alto ticket: celulares, notebooks, TVs. Función: mantener top-of-mind entre eventos.</p>
+      </div>
+    </div>
+
+    <!-- Banner web Mundial -->
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm); grid-column:span 2;">
+      <div style="background:linear-gradient(135deg,#1565C0,#1976D2); padding:16px 20px;">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.7); margin-bottom:4px;">Banner web · Julio 2026</div>
+        <div style="font-size:16px; font-weight:800; color:white;">Cordobesa 3|6|12|18 sin interés — Hasta 31 de julio</div>
+      </div>
+      <div style="padding:16px 20px; display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center;">
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Banner horizontal para sitio web y homebanking. Comunica el plan de cuotas permanente con horizonte temporal claro (hasta 31/7) y refuerza el diferencial de envío a todo el país. Categorías visibles: celular, notebook, TV, auriculares — el top de búsquedas de julio.</p>
+        <div style="background:#EBF5FF; border-radius:10px; padding:16px;">
+          <div style="font-size:12px; color:#1565C0; font-weight:600; margin-bottom:8px;">Impacto julio (22 días):</div>
+          <div style="display:flex; gap:16px;">
+            <div><div style="font-size:20px; font-weight:800; color:#1565C0;">Push: 23 🔝</div><div style="font-size:11px; color:var(--muted);">compradores</div></div>
+            <div><div style="font-size:20px; font-weight:800; color:#1565C0;">Mail: 9</div><div style="font-size:11px; color:var(--muted);">compradores</div></div>
+          </div>
+          <div style="margin-top:10px; font-size:11px; color:var(--muted);">Push y Mail emergen como los canales propios más eficientes del mes</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Patrón comunicacional -->
+  <div class="chart-card fade-up">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">El patrón que revelan las comunicaciones</div>
+        <div class="chart-sub">Comunicación puntual = pico · Silencio = caída. La decisión de inversión es continua, no por evento.</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+      <div style="text-align:center; padding:20px; background:var(--bg); border-radius:12px;">
+        <div style="font-size:28px; margin-bottom:8px;">📣</div>
+        <div style="font-size:13px; font-weight:700; color:var(--teal); margin-bottom:4px;">Ofertón (Mar)</div>
+        <div style="font-size:11px; color:var(--muted);">Mailing + modal + zocalo → ×5.3 facturación</div>
+      </div>
+      <div style="text-align:center; padding:20px; background:#FEF0EA; border-radius:12px; border:1px dashed rgba(232,82,42,.3);">
+        <div style="font-size:28px; margin-bottom:8px;">😶</div>
+        <div style="font-size:13px; font-weight:700; color:var(--danger); margin-bottom:4px;">Silencio (Abr)</div>
+        <div style="font-size:11px; color:var(--muted);">Sin campañas → $10M · mínimo anual</div>
+      </div>
+      <div style="text-align:center; padding:20px; background:var(--teal-pale); border-radius:12px;">
+        <div style="font-size:28px; margin-bottom:8px;">🚀</div>
+        <div style="font-size:13px; font-weight:700; color:var(--teal); margin-bottom:4px;">Hot Sale (May)</div>
+        <div style="font-size:11px; color:var(--muted);">Mailing + zocalo + push → ×49 vs abril</div>
+      </div>
+      <div style="text-align:center; padding:20px; background:#F0FDF4; border-radius:12px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚡</div>
+        <div style="font-size:13px; font-weight:700; color:var(--success); margin-bottom:4px;">Mundial (Jul)</div>
+        <div style="font-size:11px; color:var(--muted);">Push + mail + promo TV → 7,69% conversión</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CASO DE NEGOCIO DIG_004 -->
+<section id="casoNegocio">
+  <div class="section-eyebrow">06 · Caso de Negocio · DIG_004</div>
+  <h2 class="section-title">El potencial que está en pausa</h2>
+  <p class="section-subtitle">La iniciativa DIG_004 — actualmente pausada — proyecta un impacto recurrente anual de <strong>USD 1.876.043</strong>. Los datos de 2026 confirman que los supuestos son alcanzables.</p>
+
+  <!-- Estado de la iniciativa -->
+  <div style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7); border:1px solid #FCD34D; border-radius:16px; padding:24px 28px; margin-bottom:32px; display:flex; align-items:center; gap:20px;" class="fade-up">
+    <div style="font-size:36px; flex-shrink:0;">⏸️</div>
+    <div>
+      <div style="font-size:16px; font-weight:800; color:#92400E; margin-bottom:4px;">DIG_004 — EN PAUSA · Etapa L1</div>
+      <div style="font-size:13px; color:#78350F; line-height:1.6;">
+        La iniciativa <em>"Diseñar e implementar la estrategia de Tienda Bancor para impulsar adopción y monetización"</em> fue proyectada por el equipo de Canales Digitales con impacto calificado como <strong>ALTO</strong> (>USD 1M anuales), factibilidad <strong>ALTA</strong> y valor estratégico <strong>MEDIO</strong>. Actualmente se encuentra pausada esperando aprobación. Los resultados de 2026 validan sus supuestos base.
+      </div>
+    </div>
+    <div style="flex-shrink:0; text-align:right;">
+      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#92400E;">Target L4</div>
+      <div style="font-size:20px; font-weight:800; color:#92400E;">Nov 29, 2026</div>
+    </div>
+  </div>
+
+  <!-- KPIs del caso de negocio -->
+  <div class="kpi-grid fade-up" style="margin-bottom:32px;">
+    <div class="kpi-card">
+      <div class="kpi-label">Impacto recurrente anual</div>
+      <div class="kpi-value big" style="color:var(--teal);">USD 1,87M</div>
+      <div class="kpi-footnote">Run-rate 2028 · Sin ajuste inflación</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">Impacto one-time</div>
+      <div class="kpi-value big" style="color:var(--teal);">USD 217K</div>
+      <div class="kpi-footnote">Ahorro renegociación contratos M1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Inversión requerida</div>
+      <div class="kpi-value big" style="color:var(--success);">USD 0</div>
+      <div class="kpi-footnote">Sin capex adicional proyectado</div>
+    </div>
+    <div class="kpi-card success">
+      <div class="kpi-label">Q ventas proyectado (régimen)</div>
+      <div class="kpi-value big" style="color:var(--success);">11.720/mes</div>
+      <div class="kpi-footnote">vs 2.873 base actual (+308%)</div>
+    </div>
+  </div>
+
+  <!-- 4 palancas -->
+  <h3 style="font-size:20px; font-weight:700; color:var(--teal); margin-bottom:20px;" class="fade-up">Las 4 palancas del plan</h3>
+  <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:32px;" class="fade-up">
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:24px; border-left:4px solid var(--naranja); box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <div style="width:36px; height:36px; background:var(--naranja-pale); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">🏪</div>
+        <div style="font-size:15px; font-weight:700; color:var(--carbon);">Expansión de catálogo</div>
+      </div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Plan de incorporación de <strong>270 nuevos comercios</strong> en 36 meses (~8/mes). Meta: pasar de 150 a 420 sellers activos. Incluye nuevas verticales de alto margen: Viajes, Vehículos, Salud.</p>
+      <div style="display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border);">
+        <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">150</div><div style="font-size:10px; color:var(--muted);">Sellers hoy</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--teal);">420</div><div style="font-size:10px; color:var(--muted);">Sellers meta</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--success);">+280%</div><div style="font-size:10px; color:var(--muted);">Crecimiento</div></div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:24px; border-left:4px solid var(--teal); box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <div style="width:36px; height:36px; background:var(--teal-pale); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">🤖</div>
+        <div style="font-size:15px; font-weight:700; color:var(--carbon);">IA agéntica en checkout</div>
+      </div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Agente de IA que mejora la conversión de 3,5% a 5,2% (+1,7pp). Mecanismos: checkout optimizado + recupero automático de carritos abandonados (push/email post-abandono). Equipo: 7 FTEs dedicados.</p>
+      <div style="display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border);">
+        <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">3,5%</div><div style="font-size:10px; color:var(--muted);">Conversión hoy</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--teal);">5,2%</div><div style="font-size:10px; color:var(--muted);">Meta</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--success);">+49%</div><div style="font-size:10px; color:var(--muted);">Uplift</div></div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:24px; border-left:4px solid var(--success); box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <div style="width:36px; height:36px; background:#F0FDF4; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">💳</div>
+        <div style="font-size:15px; font-weight:700; color:var(--carbon);">Cross-selling financiero</div>
+      </div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">La IA identifica compradores elegibles (35% del Q mensual) y facilita la originación de préstamos personales en sesión. Tasa 1,5%/mes sobre cartera. Ticket promedio préstamo: $150.000. Activa desde M5 del plan.</p>
+      <div style="display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border);">
+        <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">35%</div><div style="font-size:10px; color:var(--muted);">Elegibles</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--teal);">$150K</div><div style="font-size:10px; color:var(--muted);">Ticket préstamo</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--success);">1,5%</div><div style="font-size:10px; color:var(--muted);">Tasa mensual</div></div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; border:1px solid var(--border); padding:24px; border-left:4px solid #7C3AED; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <div style="width:36px; height:36px; background:#F5F3FF; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">📈</div>
+        <div style="font-size:15px; font-weight:700; color:var(--carbon);">Take rate + publicidad</div>
+      </div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Mejora progresiva del take rate del 10% al 15% (+1pp cada 6 meses desde M7). Adicionalmente, monetización de espacios publicitarios in-app (~0,016% GMV/mes desde M9). Ahorro de $12,8M/mes por renegociación de contratos Andrómeda y Mobbex.</p>
+      <div style="display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border);">
+        <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">10%</div><div style="font-size:10px; color:var(--muted);">Take rate hoy</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:#7C3AED);">15%</div><div style="font-size:10px; color:var(--muted);">Meta M31</div></div>
+        <div style="color:var(--muted); display:flex; align-items:center;">→</div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--success);">$12,8M</div><div style="font-size:10px; color:var(--muted);">Ahorro/mes</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hoja de ruta / milestones -->
+  <h3 style="font-size:20px; font-weight:700; color:var(--teal); margin-bottom:20px;" class="fade-up">Hoja de ruta de implementación</h3>
+  <div style="overflow-x:auto;" class="fade-up">
+    <table class="diff-table" style="min-width:700px;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Hito</th>
+          <th>Descripción clave</th>
+          <th>Período</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700; color:var(--naranja);">H2</td>
+          <td style="font-weight:600;">Renegociación Andrómeda + Mobbex</td>
+          <td style="font-size:12px; color:var(--muted);">Reducción $48M→$36M/mes + eliminación módulo fraude. Ahorro combinado ~$12,8M/mes desde M1.</td>
+          <td style="font-size:12px;">Jun–Ago 2026</td>
+          <td><span style="background:#FEF3C7; color:#92400E; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">No iniciado</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700; color:var(--teal);">H3</td>
+          <td style="font-weight:600;">Infraestructura IA operativa</td>
+          <td style="font-size:12px; color:var(--muted);">7 FTEs (PM, Dev Sr, Data) + cloud IA. APIs de propensión crediticia, agente checkout y scraping de precios.</td>
+          <td style="font-size:12px;">Jun–Oct 2026</td>
+          <td><span style="background:var(--teal-pale); color:var(--teal); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">⚡ En curso</span></td>
+        </tr>
+        <tr style="background:var(--naranja-pale);">
+          <td style="font-weight:700; color:var(--naranja);">H4 ★</td>
+          <td style="font-weight:700; color:var(--naranja);">Go-live take rate + agente IA checkout</td>
+          <td style="font-size:12px; color:var(--muted);">Money step: primer mes de captura de revenue incremental. Take rate >10% + conversión mejorada por IA.</td>
+          <td style="font-size:12px; font-weight:600;">Oct–Nov 2026</td>
+          <td><span style="background:var(--naranja-pale); color:var(--naranja); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; border:1px solid rgba(232,82,42,.4);">⚡ En curso</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700; color:var(--muted);">H5</td>
+          <td style="font-weight:600;">Onboarding 100 comercios nuevos</td>
+          <td style="font-size:12px; color:var(--muted);">+100 comercios netos sobre base de 150. Validación plan comercial y recurso dedicado de adquisición.</td>
+          <td style="font-size:12px;">Nov 2026–Mar 2027</td>
+          <td><span style="background:var(--bg); color:var(--muted); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700; color:var(--muted);">H6</td>
+          <td style="font-weight:600;">Cross-selling financiero con IA</td>
+          <td style="font-size:12px; color:var(--muted);">IA identifica elegibles (35% Q ventas) y origina primeros préstamos personales a 1,5%/mes.</td>
+          <td style="font-size:12px;">Oct 2026–Abr 2027</td>
+          <td><span style="background:var(--bg); color:var(--muted); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700; color:var(--muted);">H7</td>
+          <td style="font-weight:600;">Modelo estabilizado — régimen permanente</td>
+          <td style="font-size:12px; color:var(--muted);">420 comercios activos, take rate 15%, agente IA cross-selling y publicidad activa. GMV proyectado $26B año 3.</td>
+          <td style="font-size:12px;">May 2027–Dic 2029</td>
+          <td><span style="background:var(--bg); color:var(--muted); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">Pendiente</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Proyección financiera -->
+  <div class="chart-card fade-up" style="margin-top:24px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Proyección de impacto financiero — Base vs. Con Plan (ARS millones/mes)</div>
+        <div class="chart-sub">Ingresos por comisión marketplace · Escenario base 10% take rate vs. plan con mejoras graduales · Sin ajuste inflación</div>
+      </div>
+      <div class="legend-pills">
+        <div class="legend-pill"><div class="legend-dot" style="background:#9CA3AF"></div> Base (sin plan)</div>
+        <div class="legend-pill"><div class="legend-dot" style="background:var(--teal)"></div> Con plan</div>
+        <div class="legend-pill"><div class="legend-dot" style="background:var(--naranja)"></div> Uplift incremental</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartDIG004"></canvas>
+    </div>
+  </div>
+
+  <!-- Validación con resultados reales -->
+  <div style="background:linear-gradient(135deg,var(--teal),#0D3A31); border-radius:20px; padding:32px; color:white; margin-top:24px;" class="fade-up">
+    <div style="font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:12px;">Validación con datos reales 2026</div>
+    <h3 style="font-size:22px; font-weight:800; margin-bottom:16px; color:white;">Los supuestos del DIG_004 ya son realidad en los meses de evento</h3>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <div style="background:rgba(255,255,255,.08); border-radius:12px; padding:20px;">
+        <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,.6); text-transform:uppercase; margin-bottom:8px;">Conversión en Mayo</div>
+        <div style="font-size:28px; font-weight:900; color:var(--naranja);">9,11%</div>
+        <div style="font-size:12px; color:rgba(255,255,255,.6); margin-top:4px;">El plan proyecta 5,2% en régimen. Mayo demostró que <strong style="color:white;">el canal puede llegar al doble</strong> con la comunicación adecuada.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08); border-radius:12px; padding:20px;">
+        <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,.6); text-transform:uppercase; margin-bottom:8px;">Ticket en Junio</div>
+        <div style="font-size:28px; font-weight:900; color:var(--naranja);">$825K</div>
+        <div style="font-size:12px; color:rgba(255,255,255,.6); margin-top:4px;">El plan proyecta $227K en régimen. Junio demostró tickets de <strong style="color:white;">3,6× el supuesto base</strong> del caso de negocio.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08); border-radius:12px; padding:20px;">
+        <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,.6); text-transform:uppercase; margin-bottom:8px;">Facturación bruta anual</div>
+        <div style="font-size:28px; font-weight:900; color:var(--naranja);">~$1.100M</div>
+        <div style="font-size:12px; color:rgba(255,255,255,.6); margin-top:4px;">Proyección YTD extrap. anual. El plan proyecta $2.663M/mes en régimen. Con activación del DIG_004, el <strong style="color:white;">canal puede 10× su facturación</strong>.</div>
+      </div>
+    </div>
+    <div style="margin-top:24px; padding:16px 20px; background:rgba(232,82,42,.2); border:1px solid rgba(232,82,42,.4); border-radius:12px;">
+      <div style="font-size:14px; font-weight:700; color:white; margin-bottom:4px;">🔑 Argumento central para el directorio</div>
+      <div style="font-size:13px; color:rgba(255,255,255,.8); line-height:1.6;">El DIG_004 proyecta USD 1,87M anuales de impacto recurrente con inversión cero en capital. Los datos de 2026 validan que los supuestos son conservadores. Cada mes que el plan permanece en pausa es un mes de captura de valor que no ocurre. La decisión no es "¿invertir?", sino "¿cuánto más esperar?".</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div>
+    <div class="footer-brand">Tienda Bancor · Reporte de Resultados 2026</div>
+    <div class="footer-copy">Banco de Córdoba · Gerencia de Canal Digital · Julio 2026</div>
+  </div>
+  <div style="display:flex; align-items:center; gap:12px; opacity:.6;">
+    <svg viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;">
+      <path d="M20 10 Q20 4 26 4 Q32 4 32 10" stroke="#E8522A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <line x1="14" y1="14" x2="14" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="18.5" y1="14" x2="18.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="23" y1="14" x2="23" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="27.5" y1="14" x2="27.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="32" y1="14" x2="32" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="36.5" y1="14" x2="36.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <text x="44" y="28" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="white">TIENDA</text>
+      <text x="44" y="44" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="white">BANCOR</text>
+    </svg>
+  </div>
+</div>
+
+<script>
+// ── Color tokens ──────────────────────────────────────────
+const NARANJA = '#E8522A';
+const TEAL = '#1B5E52';
+const TEAL_L = '#4BA090';
+const MUTED = '#9CA3AF';
+const BORDER = '#E5E7EB';
+
+// ── Monthly data ──────────────────────────────────────────
+const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul*'];
+const billing = [31.03, 33.14, 176.48, 10.63, 544.05, 59.46, 123.79];
+const buyers  = [63, 50, 247, 29, 591, 70, 142];
+const ticket  = [470, 613, 646, 312, 821, 825, 803];
+const users   = [40684, 35243, 74245, 18422, 60539, 20680, 22408];
+const sessions = [48362, 42239, 102629, 25588, 99701, 30026, 32634]; // estimated from data
+
+// ── CHART 1: Main billing + buyers ───────────────────────
+const ctxMain = document.getElementById('chartMain').getContext('2d');
+
+// Plugin for event annotations
+const eventPlugin = {
+  id: 'eventMarkers',
+  afterDatasetsDraw(chart) {
+    const { ctx, chartArea, scales } = chart;
+    const events = [
+      { month: 2, label: '🔥 Ofertón\n9–13 Mar', color: NARANJA },
+      { month: 4, label: '🚀 Hot Sale\n11–13 May', color: TEAL },
+    ];
+    events.forEach(ev => {
+      const x = scales.x.getPixelForValue(ev.month);
+      ctx.save();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = ev.color;
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(x, chartArea.top);
+      ctx.lineTo(x, chartArea.bottom);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = ev.color;
+      ctx.font = 'bold 10px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      const lines = ev.label.split('\n');
+      lines.forEach((l, i) => ctx.fillText(l, x, chartArea.top + 14 + i * 13));
+      ctx.restore();
+    });
+  }
+};
+
+Chart.register(eventPlugin);
+
+new Chart(ctxMain, {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Facturación (M$)',
+        data: billing,
+        backgroundColor: months.map((_, i) =>
+          i === 2 ? 'rgba(232,82,42,.85)' :
+          i === 4 ? 'rgba(27,94,82,.85)' :
+          'rgba(232,82,42,.25)'),
+        borderColor: months.map((_, i) =>
+          i === 2 ? NARANJA : i === 4 ? TEAL : 'rgba(232,82,42,.4)'),
+        borderWidth: 2,
+        borderRadius: 8,
+        yAxisID: 'y',
+        order: 2,
+      },
+      {
+        label: 'Compradores',
+        data: buyers,
+        type: 'line',
+        borderColor: TEAL,
+        backgroundColor: 'rgba(27,94,82,.1)',
+        pointBackgroundColor: months.map((_, i) => i === 4 ? TEAL : 'white'),
+        pointBorderColor: TEAL,
+        pointBorderWidth: 2.5,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.4,
+        fill: false,
+        yAxisID: 'y2',
+        order: 1,
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(17,24,39,.9)',
+        padding: 12,
+        titleFont: { size: 13, weight: '700' },
+        bodyFont: { size: 12 },
+        callbacks: {
+          label: ctx => ctx.datasetIndex === 0
+            ? ` $${ctx.raw.toFixed(1)}M facturación`
+            : ` ${ctx.raw} compradores`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 12, weight: '600' } } },
+      y: {
+        position: 'left',
+        grid: { color: BORDER },
+        ticks: {
+          callback: v => '$' + v + 'M',
+          font: { size: 11 }
+        },
+        title: { display: true, text: 'Facturación (M$)', font: { size: 11 } }
+      },
+      y2: {
+        position: 'right',
+        grid: { display: false },
+        ticks: { font: { size: 11 } },
+        title: { display: true, text: 'Compradores', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// ── CHART 2: Ticket promedio ──────────────────────────────
+new Chart(document.getElementById('chartTicket').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      label: 'Ticket promedio ($K)',
+      data: ticket,
+      borderColor: NARANJA,
+      backgroundColor: 'rgba(232,82,42,.08)',
+      pointBackgroundColor: ticket.map((v, i) => i === 5 ? NARANJA : 'white'),
+      pointBorderColor: NARANJA,
+      pointBorderWidth: 2.5,
+      pointRadius: 5,
+      tension: 0.4,
+      fill: true,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => ` $${ctx.raw.toLocaleString('es-AR')}K` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+      y: {
+        grid: { color: BORDER },
+        ticks: { callback: v => '$' + v + 'K', font: { size: 11 } },
+        min: 200
+      }
+    }
+  }
+});
+
+// ── CHART 3: Users ───────────────────────────────────────
+new Chart(document.getElementById('chartUsers').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      label: 'Usuarios totales',
+      data: users,
+      backgroundColor: 'rgba(27,94,82,.7)',
+      borderColor: TEAL,
+      borderWidth: 1.5,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+      y: {
+        grid: { color: BORDER },
+        ticks: {
+          callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'K' : v,
+          font: { size: 11 }
+        }
+      }
+    }
+  }
+});
+
+// ── CHART 4: Devices ─────────────────────────────────────
+new Chart(document.getElementById('chartDevices').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Mobile',
+        data: [28140, 23459, 78429, 20747, 87214, 25205, 29018],
+        backgroundColor: 'rgba(232,82,42,.8)',
+        borderRadius: 6,
+        stack: 'devices',
+      },
+      {
+        label: 'Desktop',
+        data: [20166, 18609, 23680, 4804, 12176, 4584, 3553],
+        backgroundColor: 'rgba(27,94,82,.7)',
+        borderRadius: 6,
+        stack: 'devices',
+      },
+      {
+        label: 'Tablet',
+        data: [56, 9, 520, 39, 154, 16, 52],
+        backgroundColor: 'rgba(156,163,175,.6)',
+        borderRadius: 6,
+        stack: 'devices',
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { font: { size: 11 }, boxWidth: 12, padding: 16 }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 11 } }, stacked: true },
+      y: {
+        grid: { color: BORDER }, stacked: true,
+        ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'K' : v, font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// ── CHART: DIG_004 Financial Projections ─────────────────
+// Monthly commission income base vs plan (ARS millions)
+// Base: 2,873 txs × $197K × 10% = $56.6M/month
+// Plan ramps from M1 to M36
+const dig_months = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12',
+                    'M13','M14','M15','M16','M17','M18','M19','M20','M21','M22','M23','M24'];
+const dig_base = Array(24).fill(56.6);
+const dig_plan = [56.6,58.8,61.1,65.7,70.6,75.8,89.4,95.6,102.1,109.1,116.5,124.4,
+                  125.0,126.5,128.1,129.8,131.5,133.3,152.0,154.0,156.2,158.3,160.5,162.8];
+const dig_uplift = dig_plan.map((v,i) => Math.max(0, v - dig_base[i]));
+
+new Chart(document.getElementById('chartDIG004').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: dig_months,
+    datasets: [
+      {
+        label: 'Base (sin plan)',
+        data: dig_base,
+        backgroundColor: 'rgba(156,163,175,.4)',
+        borderColor: '#9CA3AF',
+        borderWidth: 1,
+        borderRadius: 4,
+        stack: 'total',
+      },
+      {
+        label: 'Uplift incremental (con plan)',
+        data: dig_uplift,
+        backgroundColor: 'rgba(232,82,42,.75)',
+        borderColor: NARANJA,
+        borderWidth: 1,
+        borderRadius: 4,
+        stack: 'total',
+      },
+      {
+        label: 'Total con plan',
+        data: dig_plan,
+        type: 'line',
+        borderColor: TEAL,
+        backgroundColor: 'transparent',
+        pointBackgroundColor: 'white',
+        pointBorderColor: TEAL,
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        tension: 0.3,
+        fill: false,
+        stack: undefined,
+        yAxisID: 'y',
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12, padding: 16 } },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: $${ctx.raw.toFixed(1)}M ARS`
+        }
+      }
+    },
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: {
+        stacked: true,
+        grid: { color: BORDER },
+        ticks: { callback: v => '$' + v + 'M', font: { size: 11 } },
+        title: { display: true, text: 'Ingreso por comisión (ARS M)', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// ── SCROLL FADE ───────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
