@@ -79,7 +79,7 @@
   }
 
   .nav-logo { display: flex; align-items: center; gap: 10px; margin-right: auto; }
-  .nav-logo svg { height: 30px; }
+  .nav-logo svg { height: 34px; width: auto; }
   .nav-logo-text { font-weight: 800; font-size: 13px; letter-spacing: .04em; color: var(--teal); text-transform: uppercase; }
 
   nav a {
@@ -518,16 +518,19 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <svg viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 10 Q20 4 26 4 Q32 4 32 10" stroke="#E8522A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <line x1="14" y1="14" x2="14" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="18.5" y1="14" x2="18.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="23" y1="14" x2="23" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="27.5" y1="14" x2="27.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="32" y1="14" x2="32" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="36.5" y1="14" x2="36.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <text x="44" y="28" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="#1B5E52">TIENDA</text>
-      <text x="44" y="44" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="#1B5E52">BANCOR</text>
+    <svg viewBox="0 0 124 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:34px; width:auto; overflow:visible;">
+      <!-- Handle arc -->
+      <path d="M12 11 Q12 4 20 4 Q28 4 28 11" stroke="#E8522A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <!-- Bag stripes -->
+      <line x1="7"  y1="13" x2="7"  y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="12" y1="13" x2="12" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="17" y1="13" x2="17" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="22" y1="13" x2="22" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="27" y1="13" x2="27" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="32" y1="13" x2="32" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Text -->
+      <text x="40" y="21" font-family="'Inter',Arial,sans-serif" font-weight="900" font-size="13" fill="#1B5E52" letter-spacing="0.5">TIENDA</text>
+      <text x="40" y="37" font-family="'Inter',Arial,sans-serif" font-weight="900" font-size="13" fill="#1B5E52" letter-spacing="0.5">BANCOR</text>
     </svg>
   </div>
   <a href="#performance">Performance</a>
@@ -1051,7 +1054,7 @@
     <div class="prop-card teal">
       <div class="prop-title">📣 Comunicación y eventos</div>
       <div class="prop-desc">
-        El mayor hallazgo del año es que sin comunicación, el canal no existe. Participar en Cyber Monday (noviembre), crear un evento propio en invierno (julio/agosto), y activar push + mail como canales permanentes son las acciones con mayor retorno probado. El Zocalo de Bancon generó 153 compradores en mayo: es el canal propio más eficiente.
+        El mayor hallazgo del año es que sin comunicación, el canal no existe. Participar en Cyber Monday (noviembre), activar Día del Niño (agosto) y Día de la Madre (octubre) como eventos propios, y mantener push + mail como canales permanentes son las acciones con mayor retorno probado. El Zocalo de Bancon generó 153 compradores en mayo: es el canal propio más eficiente.
       </div>
       <div class="prop-meta">→ Prioridad: CyberMonday · Evento propio Q3 · Push permanente</div>
     </div>
@@ -1082,21 +1085,21 @@
     <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; padding:8px 0;">
       <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
         <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Agosto</div>
-        <div style="font-size:22px; margin-bottom:6px;">❄️</div>
-        <div style="font-size:12px; font-weight:600; color:var(--teal);">Evento Invierno</div>
-        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Calefacción · Blanquería</div>
+        <div style="font-size:22px; margin-bottom:6px;">🧒</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Día del Niño</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Juguetes · Tech · Bici · Gaming</div>
       </div>
       <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
         <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Septiembre</div>
-        <div style="font-size:22px; margin-bottom:6px;">🏫</div>
-        <div style="font-size:12px; font-weight:600; color:var(--teal);">Vuelta a clases</div>
-        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Notebooks · Útiles</div>
+        <div style="font-size:22px; margin-bottom:6px;">🌸</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Primavera</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Muebles · Piletas · Jardín</div>
       </div>
       <div style="background:var(--bg); border-radius:12px; padding:16px; text-align:center;">
         <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Octubre</div>
-        <div style="font-size:22px; margin-bottom:6px;">👨</div>
-        <div style="font-size:12px; font-weight:600; color:var(--teal);">Día del Padre</div>
-        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Tecnología · Herramientas</div>
+        <div style="font-size:22px; margin-bottom:6px;">💐</div>
+        <div style="font-size:12px; font-weight:600; color:var(--teal);">Día de la Madre</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;">Cuidado personal · Viajes · Pequeños electro</div>
       </div>
       <div style="background:var(--naranja-pale); border: 1px solid rgba(232,82,42,.2); border-radius:12px; padding:16px; text-align:center;">
         <div style="font-size:11px; font-weight:700; color:var(--naranja); text-transform:uppercase; margin-bottom:6px;">Noviembre</div>
@@ -1177,6 +1180,10 @@
           <div style="font-size:12px; color:#78350F;">✓ Aislamiento automático de sellers deshabilitados en Home y catálogo</div>
           <div style="font-size:12px; color:#78350F;">✓ Alertas por email de publicación mínima para proteger UX</div>
           <div style="font-size:12px; color:#78350F;">→ Meta H2: llevar disponibilidad SKUs del 25% al 50%+</div>
+        </div>
+        <div style="margin-top:12px; padding-top:12px; border-top:1px solid #FDE68A;">
+          <div style="font-size:12px; font-weight:700; color:#92400E; margin-bottom:4px;">⚠️ Dependencia comercial crítica</div>
+          <div style="font-size:12px; color:#78350F; line-height:1.6;">Pasar del 25% al 50%+ de disponibilidad requiere esfuerzo activo de <strong>fuerza de venta dedicada</strong> y/o programa de incentivos a sellers para que carguen y mantengan stock actualizado. No ocurre solo con mejoras tecnológicas: necesita gestión comercial y de alianzas.</div>
         </div>
       </div>
     </div>
@@ -1262,7 +1269,7 @@
       <div style="display:flex; flex-direction:column; gap:8px;">
         <div style="padding:10px 14px; background:rgba(255,255,255,.1); border-radius:10px;">
           <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Migración a Bezza Pay</div>
-          <div style="font-size:11px; color:rgba(255,255,255,.7);">Reemplazo de Mobbex. Sinergia interna del grupo, liquidaciones unificadas y continuidad operativa. Reducción de costos.</div>
+          <div style="font-size:11px; color:rgba(255,255,255,.7);">Reemplazo de Bezza Pay. Sinergia interna del grupo, liquidaciones unificadas y continuidad operativa. Reducción de costos.</div>
         </div>
         <div style="padding:10px 14px; background:rgba(255,255,255,.1); border-radius:10px;">
           <div style="font-size:13px; font-weight:700; color:white; margin-bottom:3px;">Magento 2.4.9 — Fase 2</div>
@@ -1481,14 +1488,14 @@
       <div class="kpi-footnote">Ahorro renegociación contratos M1</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Inversión requerida</div>
-      <div class="kpi-value big" style="color:var(--success);">USD 0</div>
-      <div class="kpi-footnote">Sin capex adicional proyectado</div>
+      <div class="kpi-label">Inversión (capex adicional)</div>
+      <div class="kpi-value big" style="color:var(--teal);">A definir</div>
+      <div class="kpi-footnote">Equipo de 7 FTEs + cloud IA · Ver detalle</div>
     </div>
     <div class="kpi-card success">
-      <div class="kpi-label">Q ventas proyectado (régimen)</div>
-      <div class="kpi-value big" style="color:var(--success);">11.720/mes</div>
-      <div class="kpi-footnote">vs 2.873 base actual (+308%)</div>
+      <div class="kpi-label">Q ventas proyectado (meta H2 2026)</div>
+      <div class="kpi-value big" style="color:var(--success);">~5.000/mes</div>
+      <div class="kpi-footnote">vs 2.873 base actual (+74%) · Meta realista año 1</div>
     </div>
   </div>
 
@@ -1502,12 +1509,16 @@
         <div style="font-size:15px; font-weight:700; color:var(--carbon);">Expansión de catálogo</div>
       </div>
       <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Plan de incorporación de <strong>270 nuevos comercios</strong> en 36 meses (~8/mes). Meta: pasar de 150 a 420 sellers activos. Incluye nuevas verticales de alto margen: Viajes, Vehículos, Salud.</p>
+      <div style="background:#FEF3C7; border-radius:10px; padding:10px 14px; margin-bottom:12px; border:1px solid #FDE68A;">
+        <div style="font-size:11px; font-weight:700; color:#92400E; margin-bottom:3px;">⚠️ Dependencia comercial</div>
+        <div style="font-size:11px; color:#78350F; line-height:1.5;">El crecimiento de catálogo requiere fuerza de venta activa y programa de incentivos a sellers. Sin recurso comercial dedicado, la incorporación de nuevos comercios no se materializa.</div>
+      </div>
       <div style="display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border);">
-        <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">150</div><div style="font-size:10px; color:var(--muted);">Sellers hoy</div></div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">99</div><div style="font-size:10px; color:var(--muted);">Sellers hoy</div></div>
         <div style="color:var(--muted); display:flex; align-items:center;">→</div>
-        <div><div style="font-size:16px; font-weight:800; color:var(--teal);">420</div><div style="font-size:10px; color:var(--muted);">Sellers meta</div></div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--teal);">420</div><div style="font-size:10px; color:var(--muted);">Sellers meta (año 3)</div></div>
         <div style="color:var(--muted); display:flex; align-items:center;">→</div>
-        <div><div style="font-size:16px; font-weight:800; color:var(--success);">+280%</div><div style="font-size:10px; color:var(--muted);">Crecimiento</div></div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--success);">+325%</div><div style="font-size:10px; color:var(--muted);">Crecimiento</div></div>
       </div>
     </div>
 
@@ -1546,13 +1557,17 @@
         <div style="width:36px; height:36px; background:#F5F3FF; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">📈</div>
         <div style="font-size:15px; font-weight:700; color:var(--carbon);">Take rate + publicidad</div>
       </div>
-      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Mejora progresiva del take rate del 10% al 15% (+1pp cada 6 meses desde M7). Adicionalmente, monetización de espacios publicitarios in-app (~0,016% GMV/mes desde M9). Ahorro de $12,8M/mes por renegociación de contratos Andrómeda y Mobbex.</p>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Mejora progresiva del take rate del 10% al 15% (+1pp cada 6 meses desde M7). Monetización de espacios publicitarios in-app desde M9. Ahorro ~$12,8M/mes por migración a Bezza Pay y optimización de contrato Aiotek.</p>
+      <div style="background:#EDE9FE; border-radius:10px; padding:10px 14px; margin-bottom:12px;">
+        <div style="font-size:11px; font-weight:700; color:#7C3AED; margin-bottom:3px;">📌 Nota sobre inversión</div>
+        <div style="font-size:11px; color:#5B21B6; line-height:1.5;">El modelo DIG_004 registra capex adicional = $0 porque usa headcount existente (7 FTEs reasignados) y la migración a Bezza Pay es sinergia interna. El costo real debe cuantificarse con TI y Capital Humano antes de la aprobación definitiva.</div>
+      </div>
       <div style="display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border);">
         <div><div style="font-size:16px; font-weight:800; color:var(--naranja);">10%</div><div style="font-size:10px; color:var(--muted);">Take rate hoy</div></div>
         <div style="color:var(--muted); display:flex; align-items:center;">→</div>
-        <div><div style="font-size:16px; font-weight:800; color:#7C3AED);">15%</div><div style="font-size:10px; color:var(--muted);">Meta M31</div></div>
+        <div><div style="font-size:16px; font-weight:800; color:#7C3AED;">15%</div><div style="font-size:10px; color:var(--muted);">Meta M31</div></div>
         <div style="color:var(--muted); display:flex; align-items:center;">→</div>
-        <div><div style="font-size:16px; font-weight:800; color:var(--success);">$12,8M</div><div style="font-size:10px; color:var(--muted);">Ahorro/mes</div></div>
+        <div><div style="font-size:16px; font-weight:800; color:var(--success);">~$12,8M</div><div style="font-size:10px; color:var(--muted);">Ahorro/mes contratos</div></div>
       </div>
     </div>
 
@@ -1574,7 +1589,7 @@
       <tbody>
         <tr>
           <td style="font-weight:700; color:var(--naranja);">H2</td>
-          <td style="font-weight:600;">Renegociación Andrómeda + Mobbex</td>
+          <td style="font-weight:600;">Renegociación Aiotek + Bezza Pay</td>
           <td style="font-size:12px; color:var(--muted);">Reducción $48M→$36M/mes + eliminación módulo fraude. Ahorro combinado ~$12,8M/mes desde M1.</td>
           <td style="font-size:12px;">Jun–Ago 2026</td>
           <td><span style="background:#FEF3C7; color:#92400E; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">No iniciado</span></td>
@@ -1610,7 +1625,7 @@
         <tr>
           <td style="font-weight:700; color:var(--muted);">H7</td>
           <td style="font-weight:600;">Modelo estabilizado — régimen permanente</td>
-          <td style="font-size:12px; color:var(--muted);">420 comercios activos, take rate 15%, agente IA cross-selling y publicidad activa. GMV proyectado $26B año 3.</td>
+          <td style="font-size:12px; color:var(--muted);">420 comercios activos, take rate 15%, agente IA cross-selling y publicidad activa. GMV proyectado $26B año 3. El modelo proyecta 11.720 ventas/mes en régimen teórico; la meta operativa realista para 2026 es ~5.000/mes.</td>
           <td style="font-size:12px;">May 2027–Dic 2029</td>
           <td><span style="background:var(--bg); color:var(--muted); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">Pendiente</span></td>
         </tr>
@@ -1674,16 +1689,19 @@
     <div class="footer-copy">Banco de Córdoba · Gerencia de Canal Digital · Julio 2026</div>
   </div>
   <div style="display:flex; align-items:center; gap:12px; opacity:.6;">
-    <svg viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;">
-      <path d="M20 10 Q20 4 26 4 Q32 4 32 10" stroke="#E8522A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <line x1="14" y1="14" x2="14" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="18.5" y1="14" x2="18.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="23" y1="14" x2="23" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="27.5" y1="14" x2="27.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="32" y1="14" x2="32" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="36.5" y1="14" x2="36.5" y2="50" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
-      <text x="44" y="28" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="white">TIENDA</text>
-      <text x="44" y="44" font-family="'Inter',sans-serif" font-weight="900" font-size="13" fill="white">BANCOR</text>
+    <svg viewBox="0 0 124 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px; width:auto; overflow:visible;">
+      <!-- Handle arc -->
+      <path d="M12 11 Q12 4 20 4 Q28 4 28 11" stroke="#E8522A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <!-- Bag stripes -->
+      <line x1="7"  y1="13" x2="7"  y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="12" y1="13" x2="12" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="17" y1="13" x2="17" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="22" y1="13" x2="22" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="27" y1="13" x2="27" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="32" y1="13" x2="32" y2="37" stroke="#E8522A" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Text white for dark footer -->
+      <text x="40" y="21" font-family="'Inter',Arial,sans-serif" font-weight="900" font-size="13" fill="white" letter-spacing="0.5">TIENDA</text>
+      <text x="40" y="37" font-family="'Inter',Arial,sans-serif" font-weight="900" font-size="13" fill="white" letter-spacing="0.5">BANCOR</text>
     </svg>
   </div>
 </div>
