@@ -2048,15 +2048,21 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <label style="font-size:13px; font-weight:600; color:var(--slate);">Ingresos financieros (medios propios)</label>
           <div style="display:flex; align-items:center; gap:4px;">
-            <input id="financial" type="number" value="1.1" min="0" max="20" step="0.1"
+            <input id="financial" type="number" value="1.1" min="-20" max="20" step="0.1"
               style="width:70px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
               oninput="calcBreakeven()">
             <span style="font-size:12px; color:var(--muted);">%</span>
           </div>
         </div>
-        <input type="range" id="financialRange" min="0" max="20" step="0.1" value="1.1"
+        <input type="range" id="financialRange" min="-20" max="20" step="0.1" value="1.1"
           style="width:100%; accent-color:#7C3AED;" oninput="syncSlider('financial','financialRange'); calcBreakeven()">
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>0%</span><span>20%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>−20%</span><span style="margin-left:auto;margin-right:auto;color:var(--muted);">0%</span><span>+20%</span></div>
+        <div style="position:relative;height:2px;background:var(--border);border-radius:99px;margin-top:4px;">
+          <div style="position:absolute;left:50%;top:-1px;width:2px;height:4px;background:var(--muted);border-radius:99px;"></div>
+        </div>
+        <div id="financialWarning" style="display:none;margin-top:6px;padding:6px 10px;background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;font-size:11px;color:#92400E;">
+          ⚠️ Valor negativo: la promoción financiera genera una pérdida que sube el punto de equilibrio.
+        </div>
       </div>
 
       <!-- Estructura de costo -->
@@ -2076,7 +2082,8 @@
       </div>
 
       <div style="margin-top:16px; padding:12px 14px; background:var(--bg); border-radius:10px; font-size:11px; color:var(--muted); line-height:1.6;">
-        💡 Valores cargados con los datos reales de Tienda Bancor a julio 2026. Ticket: $740K · Comisión: 10% · Fin. Bancor: 1,1% · Costo Aiotek + Bezza Pay: ~$51,7M/mes
+        💡 Valores cargados con datos reales de Tienda Bancor a julio 2026. Ticket: $740K · Comisión: 10% · Fin. Bancor: 1,1% · Costo Aiotek + Bezza Pay: ~$51,7M/mes<br>
+        <span style="color:#7C3AED;">Los ingresos financieros admiten valores negativos para modelar escenarios con promociones subsidiadas (ej: cuotas sin interés absorbidas por el banco).</span>
       </div>
     </div>
 
@@ -2172,14 +2179,32 @@ function calcBreakeven() {
   const totalRatePct = commPct + finPct;
   const revenuePerSale = ticket * (totalRatePct / 100);
 
+  // Show/hide warning for negative financial income
+  const warning = document.getElementById('financialWarning');
+  if (warning) warning.style.display = finPct < 0 ? 'block' : 'none';
+
+  // Color the financial input red when negative
+  const finInput = document.getElementById('financial');
+  if (finInput) finInput.style.color = finPct < 0 ? 'var(--danger)' : 'var(--carbon)';
+
+  // If net revenue per sale ≤ 0, PE is unreachable
   const peQ = revenuePerSale > 0 ? Math.ceil(costs / revenuePerSale) : null;
   const peRevenue = peQ ? peQ * ticket : null;
 
   // Update main result
-  document.getElementById('resultQ').textContent       = peQ ? peQ.toLocaleString('es-AR') : '∞';
-  document.getElementById('resultPerSale').textContent = revenuePerSale > 0 ? fmt(revenuePerSale) : '—';
+  const resultEl = document.getElementById('resultQ');
+  if (revenuePerSale <= 0) {
+    resultEl.textContent = '∞';
+    resultEl.style.fontSize = '48px';
+    resultEl.title = 'Ingreso neto por venta negativo o cero: el PE no es alcanzable con estas variables.';
+  } else {
+    resultEl.textContent = peQ.toLocaleString('es-AR');
+    resultEl.style.fontSize = '72px';
+    resultEl.title = '';
+  }
+  document.getElementById('resultPerSale').textContent = revenuePerSale > 0 ? fmt(revenuePerSale) : '⚠️ Pérdida neta';
   document.getElementById('resultRevPE').textContent   = peRevenue ? fmt(peRevenue) : '—';
-  document.getElementById('statusPE').textContent      = peQ ? peQ.toLocaleString('es-AR') + '/mes' : '—';
+  document.getElementById('statusPE').textContent      = peQ ? peQ.toLocaleString('es-AR') + '/mes' : 'No alcanzable';
 
   // Status vs actual
   const actualAvg  = 185;
@@ -2191,6 +2216,18 @@ function calcBreakeven() {
   const bar = document.getElementById('progressBar');
   const lbl = document.getElementById('progressLabel');
   const msg = document.getElementById('statusMessage');
+
+  if (!peQ) {
+    bar.style.width = '100%';
+    bar.style.background = 'linear-gradient(to right, #DC2626, #EF4444)';
+    lbl.textContent = 'Ingreso neto negativo — PE no alcanzable';
+    msg.style.background = '#FEF2F2';
+    msg.style.border = '1px solid #FECACA';
+    msg.style.borderRadius = '10px';
+    msg.style.padding = '12px 14px';
+    msg.innerHTML = `<strong style="color:#DC2626">⚠️ Con estas variables el canal opera en pérdida neta por venta.</strong> La combinación de comisión e ingresos financieros no alcanza para cubrir los costos variables. Revisá el margen financiero o incrementá la comisión al seller para que el ingreso por venta sea positivo.`;
+    return;
+  }
 
   if (peQ) {
     const displayPct = Math.round(pctBest);
