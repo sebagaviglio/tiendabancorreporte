@@ -2019,11 +2019,11 @@
             <span style="font-size:12px; color:var(--muted);">$</span>
             <input id="ticket" type="number" value="740000" min="50000" max="5000000" step="10000"
               style="width:110px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
-              oninput="calcBreakeven()">
+              oninput="fromInput(this,'ticketRange'); calcBreakeven()">
           </div>
         </div>
         <input type="range" id="ticketRange" min="50000" max="3000000" step="10000" value="740000"
-          style="width:100%; accent-color:var(--teal);" oninput="syncSlider('ticket','ticketRange'); calcBreakeven()">
+          style="width:100%; accent-color:var(--teal);" oninput="fromRange(this,'ticket'); calcBreakeven()">
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>$50K</span><span>$3M</span></div>
       </div>
 
@@ -2034,12 +2034,12 @@
           <div style="display:flex; align-items:center; gap:4px;">
             <input id="commission" type="number" value="10" min="1" max="30" step="0.5"
               style="width:70px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
-              oninput="calcBreakeven()">
+              oninput="fromInput(this,'commissionRange'); calcBreakeven()">
             <span style="font-size:12px; color:var(--muted);">%</span>
           </div>
         </div>
         <input type="range" id="commissionRange" min="1" max="25" step="0.5" value="10"
-          style="width:100%; accent-color:var(--naranja);" oninput="syncSlider('commission','commissionRange'); calcBreakeven()">
+          style="width:100%; accent-color:var(--naranja);" oninput="fromRange(this,'commission'); calcBreakeven()">
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>1%</span><span>25%</span></div>
       </div>
 
@@ -2050,12 +2050,12 @@
           <div style="display:flex; align-items:center; gap:4px;">
             <input id="financial" type="number" value="1.1" min="-20" max="20" step="0.1"
               style="width:70px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
-              oninput="calcBreakeven()">
+              oninput="fromInput(this,'financialRange'); calcBreakeven()">
             <span style="font-size:12px; color:var(--muted);">%</span>
           </div>
         </div>
         <input type="range" id="financialRange" min="-20" max="20" step="0.1" value="1.1"
-          style="width:100%; accent-color:#7C3AED;" oninput="syncSlider('financial','financialRange'); calcBreakeven()">
+          style="width:100%; accent-color:#7C3AED;" oninput="fromRange(this,'financial'); calcBreakeven()">
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>−20%</span><span style="margin-left:auto;margin-right:auto;color:var(--muted);">0%</span><span>+20%</span></div>
         <div style="position:relative;height:2px;background:var(--border);border-radius:99px;margin-top:4px;">
           <div style="position:absolute;left:50%;top:-1px;width:2px;height:4px;background:var(--muted);border-radius:99px;"></div>
@@ -2073,11 +2073,11 @@
             <span style="font-size:12px; color:var(--muted);">$</span>
             <input id="costs" type="number" value="51700000" min="1000000" max="500000000" step="1000000"
               style="width:120px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
-              oninput="calcBreakeven()">
+              oninput="fromInput(this,'costsRange'); calcBreakeven()">
           </div>
         </div>
         <input type="range" id="costsRange" min="1000000" max="200000000" step="1000000" value="51700000"
-          style="width:100%; accent-color:#D97706;" oninput="syncSlider('costs','costsRange'); calcBreakeven()">
+          style="width:100%; accent-color:#D97706;" oninput="fromRange(this,'costs'); calcBreakeven()">
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>$1M</span><span>$200M</span></div>
       </div>
 
@@ -2153,22 +2153,17 @@ function fmt(n) {
   return '$' + Math.round(n).toLocaleString('es-AR');
 }
 
-function syncSlider(inputId, rangeId) {
-  const v = parseFloat(document.getElementById(inputId).value) || 0;
-  const range = document.getElementById(rangeId);
-  if (v >= parseFloat(range.min) && v <= parseFloat(range.max)) range.value = v;
-  // Also sync input from range
-  document.getElementById(inputId).value = document.getElementById(rangeId).value;
+// Range → Number input (called from range oninput)
+function fromRange(rangeEl, inputId) {
+  document.getElementById(inputId).value = rangeEl.value;
 }
 
-// Called on range change too — sync input from range
-document.querySelectorAll('input[type=range]').forEach(r => {
-  r.addEventListener('input', function() {
-    const inputId = this.id.replace('Range', '');
-    const inputEl = document.getElementById(inputId);
-    if (inputEl) inputEl.value = this.value;
-  });
-});
+// Number input → Range (called from number oninput)
+function fromInput(inputEl, rangeId) {
+  const r = document.getElementById(rangeId);
+  const v = parseFloat(inputEl.value);
+  if (!isNaN(v) && v >= parseFloat(r.min) && v <= parseFloat(r.max)) r.value = v;
+}
 
 function calcBreakeven() {
   const ticket    = parseFloat(document.getElementById('ticket').value)     || 0;
