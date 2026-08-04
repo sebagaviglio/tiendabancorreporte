@@ -2081,9 +2081,50 @@
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>$1M</span><span>$200M</span></div>
       </div>
 
+      <!-- Costo equipo -->
+      <div style="margin-bottom:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <div>
+            <label style="font-size:13px; font-weight:600; color:var(--slate);">Costo del equipo</label>
+            <div style="font-size:11px; color:var(--muted); margin-top:1px;">$3.000.000 / persona · mes</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <input id="teamPeople" type="number" value="2" min="1" max="50" step="1"
+              style="width:60px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
+              oninput="fromInput(this,'teamRange'); updateTeamCost(); calcBreakeven()">
+            <span style="font-size:12px; color:var(--muted);">personas</span>
+          </div>
+        </div>
+        <input type="range" id="teamRange" min="1" max="50" step="1" value="2"
+          style="width:100%; accent-color:#1565C0;" oninput="fromRange(this,'teamPeople'); updateTeamCost(); calcBreakeven()">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>1 persona</span><span>50 personas</span></div>
+        <div id="teamCostDisplay" style="margin-top:6px; padding:6px 10px; background:#EBF5FF; border-radius:8px; font-size:11px; color:#1565C0; font-weight:600;">
+          Costo equipo: $6.000.000/mes (2 personas × $3.000.000)
+        </div>
+      </div>
+
+      <!-- Gateway de pago -->
+      <div style="margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <div>
+            <label style="font-size:13px; font-weight:600; color:var(--slate);">Costo gateway de pago</label>
+            <div style="font-size:11px; color:var(--muted); margin-top:1px;">% sobre el ticket · reduce ingreso neto</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:4px;">
+            <input id="gateway" type="number" value="1.3" min="0" max="7" step="0.1"
+              style="width:70px; padding:5px 8px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:700; color:var(--carbon); text-align:right; outline:none;"
+              oninput="fromInput(this,'gatewayRange'); calcBreakeven()">
+            <span style="font-size:12px; color:var(--muted);">%</span>
+          </div>
+        </div>
+        <input type="range" id="gatewayRange" min="0" max="7" step="0.1" value="1.3"
+          style="width:100%; accent-color:#DC2626;" oninput="fromRange(this,'gateway'); calcBreakeven()">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;"><span>0%</span><span>7%</span></div>
+      </div>
+
       <div style="margin-top:16px; padding:12px 14px; background:var(--bg); border-radius:10px; font-size:11px; color:var(--muted); line-height:1.6;">
-        💡 Valores cargados con datos reales de Tienda Bancor a julio 2026. Ticket: $740K · Comisión: 10% · Fin. Bancor: 1,1% · Costo Aiotek + Bezza Pay: ~$51,7M/mes<br>
-        <span style="color:#7C3AED;">Los ingresos financieros admiten valores negativos para modelar escenarios con promociones subsidiadas (ej: cuotas sin interés absorbidas por el banco).</span>
+        💡 Base: Ticket $740K · Comisión 10% · Fin. Bancor 1,1% · Costos Aiotek + Bezza Pay ~$51,7M · Equipo 2 personas · Gateway Bezza Pay 1,3%<br>
+        <span style="color:#7C3AED;">Los ingresos financieros admiten negativos para modelar promociones subsidiadas. El gateway se descuenta del ingreso neto por venta.</span>
       </div>
     </div>
 
@@ -2098,12 +2139,20 @@
         <div style="margin-top:20px; padding-top:20px; border-top:1px solid rgba(255,255,255,.15);">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; text-align:left;">
             <div>
-              <div style="font-size:11px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px;">Ingreso por venta</div>
+              <div style="font-size:11px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px;">Ingreso neto por venta</div>
               <div id="resultPerSale" style="font-size:20px; font-weight:800; color:white;">—</div>
             </div>
             <div>
               <div style="font-size:11px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px;">Facturación en PE</div>
               <div id="resultRevPE" style="font-size:20px; font-weight:800; color:white;">—</div>
+            </div>
+            <div>
+              <div style="font-size:11px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px;">Costos fijos totales</div>
+              <div id="resultTotalCosts" style="font-size:20px; font-weight:800; color:white;">—</div>
+            </div>
+            <div>
+              <div style="font-size:11px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px;">Costo gateway/venta</div>
+              <div id="resultGatewayCost" style="font-size:20px; font-weight:800; color:#FFB49A;">—</div>
             </div>
           </div>
         </div>
@@ -2165,14 +2214,31 @@ function fromInput(inputEl, rangeId) {
   if (!isNaN(v) && v >= parseFloat(r.min) && v <= parseFloat(r.max)) r.value = v;
 }
 
+// Update team cost display label
+function updateTeamCost() {
+  const people = parseInt(document.getElementById('teamPeople').value) || 0;
+  const total = people * 3000000;
+  const fmt = n => '$' + n.toLocaleString('es-AR');
+  const el = document.getElementById('teamCostDisplay');
+  if (el) el.textContent = `Costo equipo: ${fmt(total)}/mes (${people} persona${people !== 1 ? 's' : ''} × $3.000.000)`;
+}
+
 function calcBreakeven() {
   const ticket    = parseFloat(document.getElementById('ticket').value)     || 0;
   const commPct   = parseFloat(document.getElementById('commission').value) || 0;
   const finPct    = parseFloat(document.getElementById('financial').value)  || 0;
   const costs     = parseFloat(document.getElementById('costs').value)      || 0;
+  const people    = parseInt(document.getElementById('teamPeople').value)   || 0;
+  const gatewayPct = parseFloat(document.getElementById('gateway').value)   || 0;
 
-  const totalRatePct = commPct + finPct;
-  const revenuePerSale = ticket * (totalRatePct / 100);
+  const COST_PER_PERSON = 3000000;
+  const teamCost = people * COST_PER_PERSON;
+  const totalFixedCosts = costs + teamCost;
+
+  // Net rate: commission + financial income - gateway cost
+  const netRatePct = commPct + finPct - gatewayPct;
+  const revenuePerSale = ticket * (netRatePct / 100);
+  const gatewayCostPerSale = ticket * (gatewayPct / 100);
 
   // Show/hide warning for negative financial income
   const warning = document.getElementById('financialWarning');
@@ -2183,7 +2249,7 @@ function calcBreakeven() {
   if (finInput) finInput.style.color = finPct < 0 ? 'var(--danger)' : 'var(--carbon)';
 
   // If net revenue per sale ≤ 0, PE is unreachable
-  const peQ = revenuePerSale > 0 ? Math.ceil(costs / revenuePerSale) : null;
+  const peQ = revenuePerSale > 0 ? Math.ceil(totalFixedCosts / revenuePerSale) : null;
   const peRevenue = peQ ? peQ * ticket : null;
 
   // Update main result
@@ -2197,9 +2263,11 @@ function calcBreakeven() {
     resultEl.style.fontSize = '72px';
     resultEl.title = '';
   }
-  document.getElementById('resultPerSale').textContent = revenuePerSale > 0 ? fmt(revenuePerSale) : '⚠️ Pérdida neta';
-  document.getElementById('resultRevPE').textContent   = peRevenue ? fmt(peRevenue) : '—';
-  document.getElementById('statusPE').textContent      = peQ ? peQ.toLocaleString('es-AR') + '/mes' : 'No alcanzable';
+  document.getElementById('resultPerSale').textContent    = revenuePerSale > 0 ? fmt(revenuePerSale) : '⚠️ Pérdida neta';
+  document.getElementById('resultRevPE').textContent      = peRevenue ? fmt(peRevenue) : '—';
+  document.getElementById('resultTotalCosts').textContent = fmt(totalFixedCosts);
+  document.getElementById('resultGatewayCost').textContent = fmt(gatewayCostPerSale) + '/venta';
+  document.getElementById('statusPE').textContent         = peQ ? peQ.toLocaleString('es-AR') + '/mes' : 'No alcanzable';
 
   // Status vs actual
   const actualAvg  = 185;
@@ -2220,7 +2288,7 @@ function calcBreakeven() {
     msg.style.border = '1px solid #FECACA';
     msg.style.borderRadius = '10px';
     msg.style.padding = '12px 14px';
-    msg.innerHTML = `<strong style="color:#DC2626">⚠️ Con estas variables el canal opera en pérdida neta por venta.</strong> La combinación de comisión e ingresos financieros no alcanza para cubrir los costos variables. Revisá el margen financiero o incrementá la comisión al seller para que el ingreso por venta sea positivo.`;
+    msg.innerHTML = `<strong style="color:#DC2626">⚠️ Con estas variables el canal opera en pérdida neta por venta.</strong> La comisión e ingresos financieros no cubren el costo de gateway. Revisá el margen o incrementá la comisión al seller.`;
     return;
   }
 
@@ -2254,22 +2322,27 @@ function calcBreakeven() {
   let html = `<table style="width:100%;border-collapse:collapse;font-size:12px;">
     <tr style="background:var(--teal);color:white;">
       <th style="padding:8px 10px;text-align:left;font-weight:700;border-radius:8px 0 0 0;">Ticket prom.</th>
-      <th style="padding:8px 10px;text-align:right;font-weight:700;">Ingreso/venta</th>
+      <th style="padding:8px 10px;text-align:right;font-weight:700;">Ingreso neto/venta</th>
       <th style="padding:8px 10px;text-align:right;font-weight:700;border-radius:0 8px 0 0;">PE (ventas/mes)</th>
     </tr>`;
   tickets.forEach((t, i) => {
-    const rpv = t * (totalRatePct / 100);
-    const pe = rpv > 0 ? Math.ceil(costs / rpv) : '∞';
+    const rpv = t * (netRatePct / 100);
+    const pe = rpv > 0 ? Math.ceil(totalFixedCosts / rpv) : '∞';
     const isActive = Math.abs(t - ticket) < 50001;
     const bg = isActive ? 'rgba(232,82,42,.08)' : (i % 2 === 0 ? 'var(--bg)' : 'white');
     const fw = isActive ? '700' : '400';
     const marker = isActive ? ' ◀ actual' : '';
     html += `<tr style="background:${bg};">
       <td style="padding:8px 10px;font-weight:${fw};color:var(--carbon);">${fmt(t)}${marker}</td>
-      <td style="padding:8px 10px;text-align:right;color:var(--teal);font-weight:600;">${rpv > 0 ? fmt(rpv) : '—'}</td>
+      <td style="padding:8px 10px;text-align:right;color:${rpv > 0 ? 'var(--teal)' : 'var(--danger)'};font-weight:600;">${rpv > 0 ? fmt(rpv) : '⚠️ pérdida'}</td>
       <td style="padding:8px 10px;text-align:right;font-weight:${fw};color:${isActive ? 'var(--naranja)' : 'var(--carbon)'};">${typeof pe === 'number' ? pe.toLocaleString('es-AR') : pe}</td>
     </tr>`;
   });
+  html += `<tr style="background:var(--bg);border-top:2px solid var(--border);">
+    <td colspan="3" style="padding:8px 10px;font-size:11px;color:var(--muted);">
+      Costos fijos totales: ${fmt(totalFixedCosts)} (estructura + equipo) · Gateway: ${gatewayPct}% · Margen neto: ${netRatePct.toFixed(1)}%
+    </td>
+  </tr>`;
   html += '</table>';
   document.getElementById('sensitivityTable').innerHTML = html;
 }
@@ -2898,19 +2971,24 @@ const sparkChart = buildSparkline();
 
 function updateSparkline(peQ) {
   if (!sparkChart) return;
-  const ticket   = parseFloat(document.getElementById('ticket')?.value)||740000;
-  const comm     = parseFloat(document.getElementById('commission')?.value)||10;
-  const fin      = parseFloat(document.getElementById('financial')?.value)||1.1;
-  const costs    = parseFloat(document.getElementById('costs')?.value)||51700000;
-  const rpm      = ticket * ((comm+fin)/100);
-  const maxQ     = Math.max(peQ * 1.8, 300);
-  const steps    = 12;
-  const step     = Math.ceil(maxQ / steps);
+  const ticket     = parseFloat(document.getElementById('ticket')?.value)||740000;
+  const comm       = parseFloat(document.getElementById('commission')?.value)||10;
+  const fin        = parseFloat(document.getElementById('financial')?.value)||1.1;
+  const costs      = parseFloat(document.getElementById('costs')?.value)||51700000;
+  const people     = parseInt(document.getElementById('teamPeople')?.value)||2;
+  const gateway    = parseFloat(document.getElementById('gateway')?.value)||1.3;
+  const teamCost   = people * 3000000;
+  const totalFixed = costs + teamCost;
+  const netRate    = (comm + fin - gateway) / 100;
+  const rpm        = ticket * netRate;
+  const maxQ       = Math.max(peQ * 1.8, 300);
+  const steps      = 12;
+  const step       = Math.ceil(maxQ / steps);
 
   const labels=[], costData=[], revData=[];
   for(let q=0;q<=maxQ;q+=step){
     labels.push(q.toLocaleString('es-AR'));
-    costData.push(costs);
+    costData.push(totalFixed);
     revData.push(q*rpm);
   }
   sparkChart.data.labels = labels;
